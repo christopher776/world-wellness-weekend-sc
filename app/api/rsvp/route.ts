@@ -34,13 +34,19 @@ export async function POST(request: Request) {
   }
 
   const resendApiKey = process.env.RESEND_API_KEY;
-  const notifyTo = process.env.RSVP_NOTIFY_EMAIL;
+  // Supports a single address or a comma-separated list, e.g.
+  // "a@example.com, b@example.com, c@example.com"
+  const notifyTo = (process.env.RSVP_NOTIFY_EMAIL ?? "")
+    .split(",")
+    .map((email) => email.trim())
+    .filter(Boolean);
   const sheetsWebhookUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
 
   // If Resend is configured (via Vercel environment variables), send a
-  // real notification email. If not configured yet, we still accept the
-  // submission so the form works end-to-end during setup/testing.
-  if (resendApiKey && notifyTo) {
+  // real notification email to every configured recipient. If not
+  // configured yet, we still accept the submission so the form works
+  // end-to-end during setup/testing.
+  if (resendApiKey && notifyTo.length > 0) {
     try {
       const subject =
         body.type === "newsletter"
@@ -65,7 +71,7 @@ export async function POST(request: Request) {
         },
         body: JSON.stringify({
           from: "World Wellness Weekend <onboarding@resend.dev>",
-          to: [notifyTo],
+          to: notifyTo,
           reply_to: body.email,
           subject,
           text: lines.join("\n"),
