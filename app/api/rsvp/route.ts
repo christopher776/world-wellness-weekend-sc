@@ -35,7 +35,11 @@ export async function POST(request: Request) {
 
   const resendApiKey = process.env.RESEND_API_KEY;
   const notifyTo = process.env.RSVP_NOTIFY_EMAIL;
+  const sheetsWebhookUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
 
+  // If Resend is configured (via Vercel environment variables), send a
+  // real notification email. If not configured yet, we still accept the
+  // submission so the form works end-to-end during setup/testing.
   if (resendApiKey && notifyTo) {
     try {
       const subject =
@@ -68,7 +72,24 @@ export async function POST(request: Request) {
         }),
       });
     } catch (err) {
+      // Do not fail the user-facing submission if the email send fails —
+      // log it server-side for later investigation.
       console.error("RSVP notification email failed:", err);
+    }
+  }
+
+  // If a Google Sheets Apps Script webhook is configured, append the
+  // submission as a row for storage/record-keeping.
+  if (sheetsWebhookUrl) {
+    try {
+      await fetch(sheetsWebhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+        redirect: "follow",
+      });
+    } catch (err) {
+      console.error("Google Sheets webhook failed:", err);
     }
   }
 
