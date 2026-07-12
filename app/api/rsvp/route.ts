@@ -70,7 +70,7 @@ export async function POST(request: Request) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "World Wellness Weekend <onboarding@resend.dev>",
+          from: "World Wellness Weekend <updates@scwellness.org>",
           to: notifyTo,
           reply_to: body.email,
           subject,
