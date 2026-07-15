@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/association",
     "/rsvp",
     "/privacy-policy",
+    "/terms-and-conditions",
   ];
 
   return routes.map((route) => ({
