@@ -56,8 +56,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-navy-600 pt-6 text-center text-xs text-navy-100">
-          Let&apos;s Celebrate Wellness. Together. Reserve your place today.
+        <div className="mt-10 flex flex-col items-center gap-3 border-t border-navy-600 pt-6 text-center text-xs text-navy-100">
+          <p>Let&apos;s Celebrate Wellness. Together. Reserve your place today.</p>
+          <Link href="/privacy-policy" className="underline hover:text-gold-400">
+            Privacy Policy
+          </Link>
         </div>
       </div>
     </footer>

@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/hotel-travel",
     "/association",
     "/rsvp",
+    "/privacy-policy",
   ];
 
   return routes.map((route) => ({
