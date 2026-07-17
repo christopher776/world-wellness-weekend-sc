@@ -33,20 +33,23 @@ export async function POST(request: Request) {
     );
   }
 
-  const resendApiKey = process.env.RESEND_API_KEY;
+  const mailgunApiKey = process.env.MAILGUN_API_KEY;
+  const mailgunDomain = process.env.MAILGUN_DOMAIN || "mg.scwellness.org";
   // Supports a single address or a comma-separated list, e.g.
-  // "a@example.com, b@example.com, c@example.com"
+  // "a@example.com, b@example.com"
   const notifyTo = (process.env.RSVP_NOTIFY_EMAIL ?? "")
     .split(",")
     .map((email) => email.trim())
     .filter(Boolean);
   const sheetsWebhookUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
+  // Optional: GoHighLevel inbound webhook — when configured, form
+  // submissions are also forwarded to GHL as a contact/event.
+  const ghlWebhookUrl = process.env.GHL_WEBHOOK_URL;
 
-  // If Resend is configured (via Vercel environment variables), send a
-  // real notification email to every configured recipient. If not
-  // configured yet, we still accept the submission so the form works
-  // end-to-end during setup/testing.
-  if (resendApiKey && notifyTo.length > 0) {
+  // Send a real notification email via Mailgun (mg.scwellness.org) to
+  // every configured recipient. If not configured yet, we still accept
+  // the submission so the form works end-to-end during setup/testing.
+  if (mailgunApiKey && notifyTo.length > 0) {
     try {
       const subject =
         body.type === "newsletter"
@@ -63,19 +66,22 @@ export async function POST(request: Request) {
         `Message: ${body.message ?? "-"}`,
       ];
 
-      await fetch("https://api.resend.com/emails", {
+      const form = new URLSearchParams();
+      form.set("from", `World Wellness Weekend <updates@${mailgunDomain}>`);
+      notifyTo.forEach((addr) => form.append("to", addr));
+      form.set("h:Reply-To", body.email);
+      form.set("subject", subject);
+      form.set("text", lines.join("\n"));
+
+      await fetch(`https://api.mailgun.net/v3/${mailgunDomain}/messages`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${resendApiKey}`,
-          "Content-Type": "application/json",
+          Authorization: `Basic ${Buffer.from(`api:${mailgunApiKey}`).toString(
+            "base64"
+          )}`,
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: JSON.stringify({
-          from: "World Wellness Weekend <updates@scwellness.org>",
-          to: notifyTo,
-          reply_to: body.email,
-          subject,
-          text: lines.join("\n"),
-        }),
+        body: form.toString(),
       });
     } catch (err) {
       // Do not fail the user-facing submission if the email send fails —
@@ -96,6 +102,20 @@ export async function POST(request: Request) {
       });
     } catch (err) {
       console.error("Google Sheets webhook failed:", err);
+    }
+  }
+
+  // If a GoHighLevel inbound webhook is configured, forward the
+  // submission so GHL can create/update a contact and trigger workflows.
+  if (ghlWebhookUrl) {
+    try {
+      await fetch(ghlWebhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+    } catch (err) {
+      console.error("GoHighLevel webhook failed:", err);
     }
   }
 

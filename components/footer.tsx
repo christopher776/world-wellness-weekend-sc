@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Mail, MapPin } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { NewsletterSignup } from "@/components/newsletter-signup";
+import { siteConfig } from "@/lib/site-config";
 
 export function Footer() {
   return (
@@ -39,7 +40,9 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-navy-100">
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-gold-400" />
-                Dayleann@LuxwellSolutions.com
+                <a href={`mailto:${siteConfig.contactEmail}`} className="hover:text-gold-400">
+                  {siteConfig.contactEmail}
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-gold-400" />

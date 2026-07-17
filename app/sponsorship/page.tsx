@@ -86,7 +86,7 @@ export default function SponsorshipPage() {
         <SectionHeading
           eyebrow="Questions?"
           title="Need help choosing a sponsorship level?"
-          subtitle="Reach out to Dayleann@LuxwellSolutions.com — spaces are limited, so reserve early to maximize visibility and take advantage of all promotional opportunities."
+          subtitle={`Reach out to ${siteConfig.contactEmail} — spaces are limited, so reserve early to maximize visibility and take advantage of all promotional opportunities.`}
         />
       </section>
     </div>

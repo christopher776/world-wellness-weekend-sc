@@ -25,7 +25,7 @@ export const siteConfig = {
       addressCountry: "US",
     },
   },
-  contactEmail: "Dayleann@LuxwellSolutions.com",
+  contactEmail: "info@scwellness.org",
   ogImage:
     "https://galaxy-prod.tlcdn.com/gen/user_33t8y88T1htQ2Ohh0A0DVFfvIXu/b649c034-1a53-47ab-a543-e69929f600b4.png",
   logoImage:
