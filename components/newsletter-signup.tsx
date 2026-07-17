@@ -5,6 +5,7 @@ import { Send, Loader2, CheckCircle } from "lucide-react";
 
 export function NewsletterSignup() {
   const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState(""); // honeypot — must stay empty
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
     "idle"
   );
@@ -16,7 +17,7 @@ export function NewsletterSignup() {
       const res = await fetch("/api/rsvp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "newsletter", email }),
+        body: JSON.stringify({ type: "newsletter", email, website }),
       });
       if (!res.ok) throw new Error("failed");
       setStatus("success");
@@ -36,6 +37,23 @@ export function NewsletterSignup() {
 
   return (
     <form onSubmit={handleSubmit} className="flex gap-2">
+      {/* Honeypot field — hidden from real visitors */}
+      <div
+        aria-hidden="true"
+        className="absolute -left-[9999px] top-auto h-0 w-0 overflow-hidden"
+      >
+        <label htmlFor="newsletter-website">Website</label>
+        <input
+          id="newsletter-website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+        />
+      </div>
+
       <input
         required
         type="email"

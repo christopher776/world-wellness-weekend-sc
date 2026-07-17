@@ -8,6 +8,9 @@ export interface RsvpPayload {
   organization?: string;
   interest?: string;
   message?: string;
+  // Honeypot field — real visitors never see or fill this input. Any
+  // value here means the submission came from a bot.
+  website?: string;
 }
 
 function isValidEmail(email: string): boolean {
@@ -24,6 +27,13 @@ export async function POST(request: Request) {
       { ok: false, error: "Invalid request body." },
       { status: 400 }
     );
+  }
+
+  // Honeypot check: if this hidden field has any value, silently accept
+  // (so the bot doesn't learn it was blocked) without emailing, logging,
+  // or storing anything.
+  if (body.website && body.website.trim().length > 0) {
+    return NextResponse.json({ ok: true });
   }
 
   if (!body.email || !isValidEmail(body.email)) {

@@ -15,6 +15,7 @@ export function RsvpForm() {
     organization: "",
     interest: "General Updates",
     message: "",
+    website: "", // honeypot — must stay empty
   });
 
   function updateField(field: keyof typeof form, value: string) {
@@ -46,6 +47,7 @@ export function RsvpForm() {
         organization: "",
         interest: "General Updates",
         message: "",
+        website: "",
       });
     } catch (err) {
       setStatus("error");
@@ -81,6 +83,26 @@ export function RsvpForm() {
       onSubmit={handleSubmit}
       className="space-y-5 rounded-xl border border-navy-100 bg-white p-8 shadow-sm"
     >
+      {/* Honeypot field — hidden from real visitors via off-screen
+          positioning (not display:none, which some bots detect and
+          skip). Left blank by humans; bots that auto-fill every field
+          will trip it. */}
+      <div
+        aria-hidden="true"
+        className="absolute -left-[9999px] top-auto h-0 w-0 overflow-hidden"
+      >
+        <label htmlFor="website">Website</label>
+        <input
+          id="website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={form.website}
+          onChange={(e) => updateField("website", e.target.value)}
+        />
+      </div>
+
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div>
           <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-navy-600">
