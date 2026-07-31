@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, CircleDollarSign, DoorOpen, FileCheck2 } from "lucide-react";
-
-const formUrl =
-  "https://docs.google.com/forms/d/e/1FAIpQLScOB5TsDzCsF5K4srwUypUi86wRr1D6WI4bai0NjFs9CyhlEQ/viewform?embedded=true";
+import {
+  ArrowUpRight,
+  CircleDollarSign,
+  DoorOpen,
+  FileCheck2,
+  ShieldCheck,
+} from "lucide-react";
 
 const responderUrl =
   "https://docs.google.com/forms/d/e/1FAIpQLScOB5TsDzCsF5K4srwUypUi86wRr1D6WI4bai0NjFs9CyhlEQ/viewform";
@@ -57,26 +60,30 @@ export default function TeachAClassPage() {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-12 md:px-6 md:py-16">
-        <div className="overflow-hidden rounded-xl border border-navy-100 bg-white shadow-sm">
-          <iframe
-            src={formUrl}
-            title="South Carolina World Wellness Weekend instructor application"
-            className="h-[2100px] w-full"
-          >
-            Loading…
-          </iframe>
-        </div>
-
-        <div className="mt-6 text-center">
+        <div className="rounded-2xl border border-gold-100 bg-white px-6 py-10 text-center shadow-sm md:px-12 md:py-14">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-cream-200 text-gold-700">
+            <ShieldCheck className="h-7 w-7" aria-hidden="true" />
+          </div>
+          <h2 className="mt-6 font-serif text-3xl font-bold text-navy-800">
+            Instructor Application
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-navy-600">
+            The application opens securely in Google Forms. Sign in with a
+            Google account to upload your headshot, logo, and proof of liability
+            insurance.
+          </p>
           <Link
             href={responderUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-gold-700 hover:text-gold-600"
+            className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-navy-800 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-navy-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-600 focus-visible:ring-offset-2"
           >
-            Open the application in a new window
-            <ArrowUpRight className="h-4 w-4" />
+            Open Instructor Application
+            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
           </Link>
+          <p className="mt-4 text-xs text-navy-500">
+            The form will open in a new browser window.
+          </p>
         </div>
       </section>
     </div>
