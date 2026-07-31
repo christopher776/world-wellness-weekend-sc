@@ -127,6 +127,12 @@ export default function HomePage() {
                   <p className="text-xs text-navy-100">Event Host</p>
                 </div>
               </div>
+              <Link
+                href="/teach-a-class"
+                className="mt-8 inline-flex items-center gap-2 rounded-md bg-gold-500 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-navy-900 transition-colors hover:bg-gold-400"
+              >
+                Apply to Teach a Class <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
             <div className="flex flex-wrap gap-3">
               {wellnessClasses.map((c) => (
