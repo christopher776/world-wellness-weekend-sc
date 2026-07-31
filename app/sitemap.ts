@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/sponsorship",
     "/rentals",
     "/hotel-travel",
+    "/teach-a-class",
     "/association",
     "/rsvp",
     "/privacy-policy",
