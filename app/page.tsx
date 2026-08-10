@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { StatBadge } from "@/components/stat-badge";
-import { PaymentButton } from "@/components/payment-button";
 import { Logo } from "@/components/logo";
 import {
   importantDates,
@@ -193,10 +192,12 @@ export default function HomePage() {
           level and exhibit placement.
         </p>
         <div className="mx-auto mt-8 max-w-xs">
-          <PaymentButton
-            linkId={sponsorTiers[0].linkId}
-            label="Reserve Your Place Today"
-          />
+          <Link
+            href="/rsvp"
+            className="inline-flex w-full items-center justify-center rounded-md bg-gold-600 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-navy-900 shadow-sm transition-colors hover:bg-gold-700"
+          >
+            Reserve Your Place Today
+          </Link>
         </div>
       </section>
     </div>
