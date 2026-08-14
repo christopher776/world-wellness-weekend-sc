@@ -2,7 +2,7 @@ import { siteConfig } from "@/lib/site-config";
 import type { Metadata } from "next";
 
 const description =
-  "Terms & Conditions for World Wellness Weekend, South Carolina, presented by the South Carolina Spa & Wellness Association.";
+  "Terms & Conditions for South Carolina Wellness Weekend, presented by the South Carolina Spa & Wellness Association.";
 
 export const metadata: Metadata = {
   title: "Terms & Conditions",
@@ -37,7 +37,7 @@ export default function TermsAndConditionsPage() {
 
       <div className="mt-10 space-y-6 text-sm leading-relaxed text-navy-600">
         <p>
-          By participating in World Wellness Weekend, South Carolina, you
+          By participating in South Carolina Wellness Weekend, you
           agree to the following terms:
         </p>
 

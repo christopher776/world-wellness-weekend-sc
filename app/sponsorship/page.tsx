@@ -7,7 +7,7 @@ import { siteConfig } from "@/lib/site-config";
 import type { Metadata } from "next";
 
 const description =
-  "Sponsorship & exhibitor tiers for World Wellness Weekend, South Carolina — Founding Partner ($200), Gold ($750), Platinum ($1,500), Diamond ($2,000), and the VIP Rest & Restore Lounge ($8,000). Reserve your place in Charleston, SC.";
+  "Sponsorship & exhibitor tiers for South Carolina Wellness Weekend — Founding Partner ($200), Gold ($750), Platinum ($1,500), Diamond ($2,000), and the VIP Rest & Restore Lounge ($8,000). Reserve your place in Charleston, SC.";
 
 export const metadata: Metadata = {
   title: "Sponsorship & Exhibitor Opportunities",
@@ -29,7 +29,7 @@ export default function SponsorshipPage() {
             Sponsorship &amp; Exhibitor Opportunities
           </p>
           <h1 className="font-serif text-4xl font-bold text-navy-800 md:text-5xl">
-            Reserve Your Place at World Wellness Weekend
+            Reserve Your Place at South Carolina Wellness Weekend
           </h1>
           <p className="mt-4 text-navy-600">
             Every level includes an inaugural South Carolina Spa &amp;

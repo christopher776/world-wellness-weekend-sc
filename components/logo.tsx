@@ -36,7 +36,7 @@ export function Logo({
   const image = (
     <Image
       src={src}
-      alt="World Wellness Weekend, South Carolina — crescent moon and palmetto tree logo"
+      alt="South Carolina Wellness Weekend — crescent moon and palmetto tree logo"
       width={1024}
       height={1024}
       priority
@@ -52,7 +52,7 @@ export function Logo({
   return (
     <Link
       href="/"
-      aria-label="World Wellness Weekend, South Carolina — home"
+      aria-label="South Carolina Wellness Weekend — home"
       className={cn("inline-block p-1", className)}
     >
       {image}

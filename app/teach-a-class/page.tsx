@@ -14,7 +14,7 @@ const responderUrl =
 export const metadata: Metadata = {
   title: "Teach a Class",
   description:
-    "Apply to teach a donation-based wellness class at World Wellness Weekend, South Carolina.",
+    "Apply to teach a donation-based wellness class at South Carolina Wellness Weekend.",
   alternates: {
     canonical: "/teach-a-class",
   },
@@ -32,7 +32,7 @@ export default function TeachAClassPage() {
             Apply to Teach a Class
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-navy-600">
-            Share your expertise during World Wellness Weekend, South Carolina,
+            Share your expertise during South Carolina Wellness Weekend,
             September 18&ndash;19, 2026, in Charleston.
           </p>
 
