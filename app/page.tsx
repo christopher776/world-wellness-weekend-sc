@@ -31,7 +31,7 @@ export default function HomePage() {
             Wellness. Community. Carolina.
           </p>
           <h1 className="mx-auto max-w-3xl font-serif text-4xl font-bold leading-tight text-navy-800 md:text-6xl">
-            World Wellness Weekend, South Carolina
+            South Carolina Wellness Weekend
           </h1>
           <p className="mx-auto mt-8 max-w-xl text-lg text-navy-600">
             All in one place — lasting connections, inspiration for every

@@ -2,7 +2,7 @@ import { siteConfig } from "@/lib/site-config";
 import type { Metadata } from "next";
 
 const description =
-  "Privacy Policy for the South Carolina Spa & Wellness Association and World Wellness Weekend, South Carolina — how we collect, use, and protect your information.";
+  "Privacy Policy for the South Carolina Spa & Wellness Association and South Carolina Wellness Weekend — how we collect, use, and protect your information.";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -30,7 +30,7 @@ export default function PrivacyPolicyPage() {
       <div className="prose-content mt-10 space-y-6 text-sm leading-relaxed text-navy-600">
         <p>
           The South Carolina Spa &amp; Wellness Association, organizer of
-          World Wellness Weekend, South Carolina (collectively,
+          South Carolina Wellness Weekend (collectively,
           &ldquo;South Carolina Spa &amp; Wellness Association&rdquo;,
           &ldquo;SCSWA&rdquo;, &ldquo;we&rdquo;, &ldquo;our&rdquo;, or
           &ldquo;us&rdquo;), based in Charleston, South Carolina, United

@@ -4,7 +4,7 @@ import { siteConfig } from "@/lib/site-config";
 import type { Metadata } from "next";
 
 const description =
-  "Sign up for World Wellness Weekend South Carolina updates — sponsorship deadlines, class schedules, and registration openings for the September 18-19, 2026 event in Charleston, SC.";
+  "Sign up for South Carolina Wellness Weekend updates — sponsorship deadlines, class schedules, and registration openings for the September 18-19, 2026 event in Charleston, SC.";
 
 export const metadata: Metadata = {
   title: "RSVP & Updates",

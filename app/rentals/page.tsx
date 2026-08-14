@@ -6,7 +6,7 @@ import { siteConfig } from "@/lib/site-config";
 import type { Metadata } from "next";
 
 const description =
-  "Treatment Room and Business Room rentals at World Wellness Weekend, Charleston, SC. Host private consultations, CEC workshops, or business trainings during the event.";
+  "Treatment Room and Business Room rentals at South Carolina Wellness Weekend, Charleston, SC. Host private consultations, CEC workshops, or business trainings during the event.";
 
 export const metadata: Metadata = {
   title: "Room Rentals",
