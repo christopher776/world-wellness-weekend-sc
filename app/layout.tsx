@@ -41,7 +41,7 @@ export const metadata: Metadata = {
         url: siteConfig.ogImage,
         width: 1536,
         height: 1024,
-        alt: "World Wellness Weekend, South Carolina logo on navy background",
+        alt: "South Carolina Wellness Weekend logo on navy background",
       },
     ],
   },

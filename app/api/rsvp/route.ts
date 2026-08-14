@@ -77,7 +77,7 @@ export async function POST(request: Request) {
       ];
 
       const form = new URLSearchParams();
-      form.set("from", `World Wellness Weekend <updates@${mailgunDomain}>`);
+      form.set("from", `South Carolina Wellness Weekend <updates@${mailgunDomain}>`);
       notifyTo.forEach((addr) => form.append("to", addr));
       form.set("h:Reply-To", body.email);
       form.set("subject", subject);

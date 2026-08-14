@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/site-config";
 import type { Metadata } from "next";
 
 const description =
-  "Where to stay for World Wellness Weekend, Charleston SC — host hotel The Francis Marion Hotel, plus why Charleston is the perfect backdrop for wellness and community.";
+  "Where to stay for South Carolina Wellness Weekend, Charleston SC — host hotel The Francis Marion Hotel, plus why Charleston is the perfect backdrop for wellness and community.";
 
 export const metadata: Metadata = {
   title: "Hotel & Travel",
@@ -47,7 +47,7 @@ export default function HotelTravelPage() {
               387 King Street, Charleston, SC 29403
             </p>
             <p className="mt-4 text-sm text-navy-600">
-              Special room rate available for World Wellness Weekend guests.
+              Special room rate available for South Carolina Wellness Weekend guests.
               Contact the hotel directly and reference the event to book at
               the discounted rate.
             </p>

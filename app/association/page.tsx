@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/site-config";
 import type { Metadata } from "next";
 
 const description =
-  "The South Carolina Spa & Wellness Association — a founding membership included with every World Wellness Weekend sponsorship level, launching January 1, 2027.";
+  "The South Carolina Spa & Wellness Association — a founding membership included with every South Carolina Wellness Weekend sponsorship level, launching January 1, 2027.";
 
 export const metadata: Metadata = {
   title: "SC Spa & Wellness Association",
@@ -30,7 +30,7 @@ export default function AssociationPage() {
             South Carolina Spa &amp; Wellness Association
           </h1>
           <p className="mt-4 text-navy-600">
-            Included with every sponsorship level of World Wellness Weekend.
+            Included with every sponsorship level of South Carolina Wellness Weekend.
           </p>
         </div>
       </section>
