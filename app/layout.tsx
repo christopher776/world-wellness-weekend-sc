@@ -6,7 +6,7 @@ import { JsonLd } from "@/components/json-ld";
 import { siteConfig } from "@/lib/site-config";
 
 const iconMarkUrl =
-  "https://galaxy-prod.tlcdn.com/gen/user_33t8y88T1htQ2Ohh0A0DVFfvIXu/b2d1deb6-0ac0-4076-955b-60cbbfb08e20.png";
+  "https://galaxy-prod.tlcdn.com/gen/e695043e8094468185b775a845faa2e6.png";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),

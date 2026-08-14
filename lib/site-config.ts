@@ -27,7 +27,7 @@ export const siteConfig = {
   },
   contactEmail: "info@scwellness.org",
   ogImage:
-    "https://galaxy-prod.tlcdn.com/gen/user_33t8y88T1htQ2Ohh0A0DVFfvIXu/b649c034-1a53-47ab-a543-e69929f600b4.png",
+    "https://galaxy-prod.tlcdn.com/gen/fd48ac951c374690a68eab1c0e2a0e3a.png",
   logoImage:
-    "https://galaxy-prod.tlcdn.com/gen/user_33t8y88T1htQ2Ohh0A0DVFfvIXu/1753da7e-9f11-4763-867d-fc4591f46341.png",
+    "https://galaxy-prod.tlcdn.com/gen/f83cd9889fe149b39431c5fd62fdbd9c.png",
 };

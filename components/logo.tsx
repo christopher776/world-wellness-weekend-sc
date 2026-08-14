@@ -12,14 +12,12 @@ interface LogoProps {
 
 const sources = {
   full: {
-    navy: "https://galaxy-prod.tlcdn.com/gen/user_33t8y88T1htQ2Ohh0A0DVFfvIXu/1753da7e-9f11-4763-867d-fc4591f46341.png",
-    light:
-      "https://galaxy-prod.tlcdn.com/gen/user_33t8y88T1htQ2Ohh0A0DVFfvIXu/7fe11f76-7e18-4064-8e6a-987609420f80.png",
+    navy: "https://galaxy-prod.tlcdn.com/gen/f83cd9889fe149b39431c5fd62fdbd9c.png",
+    light: "https://galaxy-prod.tlcdn.com/gen/b8ea0a95473548b7ac8dc8a4ee792392.png",
   },
   mark: {
-    navy: "https://galaxy-prod.tlcdn.com/gen/user_33t8y88T1htQ2Ohh0A0DVFfvIXu/b2d1deb6-0ac0-4076-955b-60cbbfb08e20.png",
-    light:
-      "https://galaxy-prod.tlcdn.com/gen/user_33t8y88T1htQ2Ohh0A0DVFfvIXu/b2d1deb6-0ac0-4076-955b-60cbbfb08e20.png",
+    navy: "https://galaxy-prod.tlcdn.com/gen/e695043e8094468185b775a845faa2e6.png",
+    light: "https://galaxy-prod.tlcdn.com/gen/e695043e8094468185b775a845faa2e6.png",
   },
 };
 
