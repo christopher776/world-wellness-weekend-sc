@@ -160,3 +160,22 @@ export const whyCharleston = [
   "Easy access to the venue",
   "The perfect backdrop for wellness and community",
 ];
+
+// VIP Tickets — per the "VIP Tickets" doc tab: $100, 100 tickets available.
+// TODO(Dayleann/Chris): replace linkId with the real Authorize.Net LinkId
+// once the VIP ticket payment link is created — this placeholder will not
+// process real payments.
+export const vipTicket = {
+  price: "$100",
+  ticketsAvailable: 100,
+  description:
+    "Priority access, a dedicated VIP reception, and exclusive experiences throughout South Carolina Wellness Weekend — designed for guests who want the full weekend at its best.",
+  inclusions: [
+    "Priority seating at all general sessions",
+    "VIP reception with food & beverage",
+    "VIP gift bag",
+    "Access to VIP-only classes and experiences",
+    "Sponsor gifts and exclusive experiences",
+  ],
+  linkId: "REPLACE_WITH_VIP_TICKET_LINKID",
+};

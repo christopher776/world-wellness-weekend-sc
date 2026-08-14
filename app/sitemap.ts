@@ -4,6 +4,11 @@ import { siteConfig } from "@/lib/site-config";
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
+    "/about",
+    "/teachers",
+    "/sponsors",
+    "/schedule",
+    "/vip-tickets",
     "/sponsorship",
     "/rentals",
     "/hotel-travel",

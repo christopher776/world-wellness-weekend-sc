@@ -25,6 +25,11 @@ export function Footer() {
               Explore
             </p>
             <ul className="space-y-2 text-sm text-navy-100">
+              <li><Link href="/about" className="hover:text-gold-400">About Us</Link></li>
+              <li><Link href="/teachers" className="hover:text-gold-400">Meet Our Teachers</Link></li>
+              <li><Link href="/sponsors" className="hover:text-gold-400">Sponsor Profiles</Link></li>
+              <li><Link href="/schedule" className="hover:text-gold-400">Schedule of Events</Link></li>
+              <li><Link href="/vip-tickets" className="hover:text-gold-400">VIP Tickets</Link></li>
               <li><Link href="/sponsorship" className="hover:text-gold-400">Sponsorship &amp; Exhibitors</Link></li>
               <li><Link href="/rentals" className="hover:text-gold-400">Room Rentals</Link></li>
               <li><Link href="/hotel-travel" className="hover:text-gold-400">Hotel &amp; Travel</Link></li>

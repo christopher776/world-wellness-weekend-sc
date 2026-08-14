@@ -9,6 +9,11 @@ import { Logo } from "@/components/logo";
 
 const navItems = [
   { href: "/", label: "Home" },
+  { href: "/about", label: "About Us" },
+  { href: "/teachers", label: "Teachers" },
+  { href: "/sponsors", label: "Sponsors" },
+  { href: "/schedule", label: "Schedule" },
+  { href: "/vip-tickets", label: "VIP Tickets" },
   { href: "/sponsorship", label: "Sponsorship" },
   { href: "/rentals", label: "Rentals" },
   { href: "/hotel-travel", label: "Hotel & Travel" },
@@ -40,13 +45,13 @@ export function Nav() {
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-7">
+        <nav className="hidden xl:flex items-center gap-4">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "text-sm font-medium uppercase tracking-wide text-navy-600 hover:text-gold-700 transition-colors",
+                "text-xs font-medium uppercase tracking-wide text-navy-600 hover:text-gold-700 transition-colors whitespace-nowrap",
                 pathname === item.href && "text-gold-700"
               )}
             >
@@ -62,7 +67,7 @@ export function Nav() {
         </nav>
 
         <button
-          className="md:hidden text-navy-800"
+          className="xl:hidden text-navy-800"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
@@ -71,7 +76,7 @@ export function Nav() {
       </div>
 
       {open && (
-        <nav className="md:hidden border-t border-gold-100 bg-cream-100 px-6 py-4 space-y-3">
+        <nav className="xl:hidden border-t border-gold-100 bg-cream-100 px-6 py-4 space-y-3">
           {navItems.map((item) => (
             <Link
               key={item.href}
