@@ -162,9 +162,6 @@ export const whyCharleston = [
 ];
 
 // VIP Tickets — per the "VIP Tickets" doc tab: $100, 100 tickets available.
-// TODO(Dayleann/Chris): replace linkId with the real Authorize.Net LinkId
-// once the VIP ticket payment link is created — this placeholder will not
-// process real payments.
 export const vipTicket = {
   price: "$100",
   ticketsAvailable: 100,
@@ -177,5 +174,5 @@ export const vipTicket = {
     "Access to VIP-only classes and experiences",
     "Sponsor gifts and exclusive experiences",
   ],
-  linkId: "REPLACE_WITH_VIP_TICKET_LINKID",
+  linkId: "dab6ea0e-9422-4739-82fc-44c2d9fb714c",
 };
