@@ -70,7 +70,7 @@ export const sponsorTiers: SponsorTier[] = [
       "Two chairs",
       "Premier exhibit placement",
       "Featured recognition throughout the event",
-      "Invitation to participate on the World Wellness Weekend Industry Leadership Panel",
+      "Invitation to participate on the South Carolina Wellness Weekend Industry Leadership Panel",
       "Opportunity to teach a donation-based wellness class",
       "Luxury wellness gift basket valued at more than $500 to keep or raffle",
     ],
@@ -136,7 +136,7 @@ export const associationBenefits = [
   "Business referrals & partnership opportunities",
   "Professional development & continuing education opportunities",
   "Recognition on the Association website as a Founding Member",
-  "Priority access to future South Carolina World Wellness Weekend events",
+  "Priority access to future South Carolina Wellness Weekend events",
   "Opportunity to help shape the future of South Carolina's wellness industry",
 ];
 

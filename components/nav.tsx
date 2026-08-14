@@ -26,13 +26,13 @@ export function Nav() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
         <Link
           href="/"
-          aria-label="World Wellness Weekend, South Carolina — home"
+          aria-label="South Carolina Wellness Weekend — home"
           className="flex items-center gap-3"
         >
           <Logo type="mark" asLink={false} imageClassName="w-10" />
           <span className="leading-tight">
             <span className="block font-serif text-base font-bold tracking-wide text-navy-800">
-              WORLD WELLNESS WEEKEND
+              SOUTH CAROLINA WELLNESS WEEKEND
             </span>
             <span className="block text-[11px] uppercase tracking-[0.25em] text-gold-700">
               South Carolina

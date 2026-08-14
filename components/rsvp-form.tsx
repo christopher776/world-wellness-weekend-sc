@@ -66,7 +66,7 @@ export function RsvpForm() {
         </p>
         <p className="text-sm text-navy-600">
           Thanks for reaching out — we&apos;ll be in touch with updates about
-          World Wellness Weekend, South Carolina.
+          South Carolina Wellness Weekend.
         </p>
         <button
           onClick={() => setStatus("idle")}
@@ -207,7 +207,7 @@ export function RsvpForm() {
       </button>
 
       <p className="text-center text-xs text-navy-400">
-        We&apos;ll only use your info to share World Wellness Weekend updates —
+        We&apos;ll only use your info to share South Carolina Wellness Weekend updates —
         no spam, ever.
       </p>
     </form>

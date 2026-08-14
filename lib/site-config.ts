@@ -1,11 +1,11 @@
 export const siteConfig = {
-  name: "World Wellness Weekend South Carolina",
-  shortName: "World Wellness Weekend SC",
+  name: "South Carolina Wellness Weekend",
+  shortName: "SC Wellness Weekend",
   url: "https://scwellness.org",
   description:
-    "World Wellness Weekend South Carolina — September 18-19, 2026 in Charleston, SC. Sponsorship & exhibitor opportunities, wellness class hosting, room rentals, and the inaugural South Carolina Spa & Wellness Association Founding Membership.",
+    "South Carolina Wellness Weekend — September 18-19, 2026 in Charleston, SC. Sponsorship & exhibitor opportunities, wellness class hosting, room rentals, and the inaugural South Carolina Spa & Wellness Association Founding Membership.",
   keywords: [
-    "World Wellness Weekend",
+    "South Carolina Wellness Weekend",
     "South Carolina wellness event",
     "Charleston SC wellness weekend",
     "spa and wellness sponsorship",
@@ -15,7 +15,7 @@ export const siteConfig = {
     "Charleston SC spa event 2026",
   ],
   event: {
-    name: "World Wellness Weekend South Carolina",
+    name: "South Carolina Wellness Weekend",
     startDate: "2026-09-18",
     endDate: "2026-09-19",
     venueName: "Charleston, South Carolina",
