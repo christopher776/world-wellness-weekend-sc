@@ -128,7 +128,7 @@ export default function HomePage() {
               </div>
               <Link
                 href="/teach-a-class"
-                className="mt-8 inline-flex items-center gap-2 rounded-md bg-gold-500 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-navy-900 transition-colors hover:bg-gold-400"
+                className="mt-8 inline-flex items-center gap-2 rounded-md bg-gold-600 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-navy-900 transition-colors hover:bg-gold-700"
               >
                 Apply to Teach a Class <ArrowRight className="h-4 w-4" />
               </Link>
