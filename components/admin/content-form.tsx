@@ -1,11 +1,16 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import Link from "next/link";
 import { Loader2, CheckCircle, AlertCircle, UploadCloud } from "lucide-react";
 import type { ContentTypeDef } from "@/lib/cms-schema";
 
 interface ContentFormProps {
   def: ContentTypeDef;
+  /** When editing an existing entry, its current field values. */
+  initialValues?: Record<string, string>;
+  /** When editing an existing entry, its row ID. Omit to create a new entry. */
+  id?: string;
 }
 
 type Values = Record<string, string>;
@@ -82,9 +87,14 @@ function ImageField({
   );
 }
 
-export function ContentForm({ def }: ContentFormProps) {
+export function ContentForm({ def, initialValues, id }: ContentFormProps) {
+  const isEditing = Boolean(id);
+  const singularLabel = def.label.replace(/s$/, "");
+
   const [values, setValues] = useState<Values>(() =>
-    Object.fromEntries(def.fields.map((f) => [f.name, f.type === "checkbox" ? "" : ""]))
+    Object.fromEntries(
+      def.fields.map((f) => [f.name, initialValues?.[f.name] ?? ""])
+    )
   );
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [error, setError] = useState("");
@@ -101,12 +111,14 @@ export function ContentForm({ def }: ContentFormProps) {
       const res = await fetch(`/api/admin/content/${def.slug}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fields: values }),
+        body: JSON.stringify(isEditing ? { id, fields: values } : { fields: values }),
       });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data?.error || "Save failed.");
       setStatus("success");
-      setValues(Object.fromEntries(def.fields.map((f) => [f.name, ""])));
+      if (!isEditing) {
+        setValues(Object.fromEntries(def.fields.map((f) => [f.name, ""])));
+      }
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Save failed.");
@@ -117,17 +129,29 @@ export function ContentForm({ def }: ContentFormProps) {
     return (
       <div className="flex flex-col items-center gap-3 rounded-xl border border-gold-100 bg-white p-10 text-center">
         <CheckCircle className="h-8 w-8 text-gold-600" />
-        <p className="font-serif text-xl font-bold text-navy-800">Saved!</p>
-        <p className="text-sm text-navy-600">
-          This {def.label.toLowerCase().replace(/s$/, "")} is now live on the site
-          {values.Published ? "" : " once you mark it Published"}.
+        <p className="font-serif text-xl font-bold text-navy-800">
+          {isEditing ? "Updated!" : "Saved!"}
         </p>
-        <button
-          onClick={() => setStatus("idle")}
-          className="mt-2 text-sm font-semibold uppercase tracking-wide text-gold-700 hover:text-gold-600"
-        >
-          Add another
-        </button>
+        <p className="text-sm text-navy-600">
+          This {singularLabel.toLowerCase()} is now live on the site
+          {values.Published === "TRUE" ? "" : " once you mark it Published"}.
+        </p>
+        <div className="mt-2 flex items-center gap-4">
+          <Link
+            href={`/admin/${def.slug}`}
+            className="text-sm font-semibold uppercase tracking-wide text-gold-700 hover:text-gold-600"
+          >
+            Back to {def.label}
+          </Link>
+          {!isEditing && (
+            <button
+              onClick={() => setStatus("idle")}
+              className="text-sm font-semibold uppercase tracking-wide text-navy-600 hover:text-navy-800"
+            >
+              Add another
+            </button>
+          )}
+        </div>
       </div>
     );
   }
@@ -206,7 +230,7 @@ export function ContentForm({ def }: ContentFormProps) {
         className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-navy-800 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-cream-100 transition-colors hover:bg-navy-600 disabled:opacity-60"
       >
         {status === "submitting" && <Loader2 className="h-4 w-4 animate-spin" />}
-        {status === "submitting" ? "Saving..." : `Save ${def.label.replace(/s$/, "")}`}
+        {status === "submitting" ? "Saving..." : isEditing ? `Update ${singularLabel}` : `Save ${singularLabel}`}
       </button>
     </form>
   );
