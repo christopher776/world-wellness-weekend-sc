@@ -67,7 +67,9 @@ function doPost(e) {
     return jsonResponse({ ok: true, id: id });
   }
 
-  // Existing RSVP / newsletter logging behavior — unchanged.
+  // Existing RSVP / newsletter logging behavior — extended with the
+  // class-interest fields added to the RSVP & Updates form. classInterests
+  // arrives pre-joined as a comma-separated string from the API route.
   var sheet = ss.getSheetByName("Submissions");
   sheet.appendRow([
     new Date(),
@@ -78,6 +80,9 @@ function doPost(e) {
     body.organization || "",
     body.interest || "",
     body.message || "",
+    body.classInterests || "",
+    body.experienceLevel || "",
+    body.accessibilityNotes || "",
   ]);
 
   return jsonResponse({ ok: true });
@@ -111,6 +116,15 @@ function jsonResponse(obj) {
   );
 }
 ```
+
+## Submissions sheet header row
+
+The "Submissions" tab header row should read (columns A–K):
+
+`Timestamp | Type | Name | Email | Phone | Organization | Interest | Message | ClassInterests | ExperienceLevel | AccessibilityNotes`
+
+The last three columns support the class-interest fields added to the RSVP
+& Updates form.
 
 ## Vercel environment variables to add
 

@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import { Loader2, CheckCircle, AlertCircle, Sparkles } from "lucide-react";
+import { wellnessClasses, vipTicket } from "@/lib/data";
+import { PaymentButton } from "@/components/payment-button";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -14,12 +16,24 @@ export function RsvpForm() {
     phone: "",
     organization: "",
     interest: "General Updates",
+    classInterests: [] as string[],
+    experienceLevel: "",
+    accessibilityNotes: "",
     message: "",
     website: "", // honeypot — must stay empty
   });
 
-  function updateField(field: keyof typeof form, value: string) {
+  function updateField<K extends keyof typeof form>(field: K, value: (typeof form)[K]) {
     setForm((prev) => ({ ...prev, [field]: value }));
+  }
+
+  function toggleClassInterest(className: string) {
+    setForm((prev) => ({
+      ...prev,
+      classInterests: prev.classInterests.includes(className)
+        ? prev.classInterests.filter((c) => c !== className)
+        : [...prev.classInterests, className],
+    }));
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -46,6 +60,9 @@ export function RsvpForm() {
         phone: "",
         organization: "",
         interest: "General Updates",
+        classInterests: [],
+        experienceLevel: "",
+        accessibilityNotes: "",
         message: "",
         website: "",
       });
@@ -59,21 +76,41 @@ export function RsvpForm() {
 
   if (status === "success") {
     return (
-      <div className="flex flex-col items-center gap-3 rounded-xl border border-gold-100 bg-white p-10 text-center">
-        <CheckCircle className="h-8 w-8 text-gold-600" />
-        <p className="font-serif text-xl font-bold text-navy-800">
-          You&apos;re on the list!
-        </p>
-        <p className="text-sm text-navy-600">
-          Thanks for reaching out — we&apos;ll be in touch with updates about
-          South Carolina Wellness Weekend.
-        </p>
-        <button
-          onClick={() => setStatus("idle")}
-          className="mt-2 text-sm font-semibold uppercase tracking-wide text-gold-700 hover:text-gold-600"
-        >
-          Submit another response
-        </button>
+      <div className="space-y-8">
+        <div className="flex flex-col items-center gap-3 rounded-xl border border-gold-100 bg-white p-10 text-center">
+          <CheckCircle className="h-8 w-8 text-gold-600" />
+          <p className="font-serif text-xl font-bold text-navy-800">
+            You&apos;re on the list!
+          </p>
+          <p className="text-sm text-navy-600">
+            Thanks for reaching out — we&apos;ll be in touch with updates about
+            South Carolina Wellness Weekend, including class schedules that match your
+            interests.
+          </p>
+          <button
+            onClick={() => setStatus("idle")}
+            className="mt-2 text-sm font-semibold uppercase tracking-wide text-gold-700 hover:text-gold-600"
+          >
+            Submit another response
+          </button>
+        </div>
+
+        {/* Enhancement option — VIP ticket upsell shown after a successful sign-up */}
+        <div className="rounded-xl border border-gold-400/40 bg-navy-800 p-8 text-center text-cream-100">
+          <Sparkles className="mx-auto mb-3 h-6 w-6 text-gold-400" />
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-400">
+            Want the Full Weekend Experience?
+          </p>
+          <h3 className="mt-2 font-serif text-2xl font-bold">VIP Experience</h3>
+          <p className="mx-auto mt-3 max-w-md text-sm text-navy-100">{vipTicket.description}</p>
+          <p className="mt-3 font-serif text-3xl font-bold text-gold-400">{vipTicket.price}</p>
+          <div className="mx-auto mt-6 max-w-xs">
+            <PaymentButton linkId={vipTicket.linkId} label="Reserve Your VIP Ticket" />
+          </div>
+          <p className="mt-3 text-xs text-navy-300">
+            Optional — your RSVP above is already confirmed either way.
+          </p>
+        </div>
       </div>
     );
   }
@@ -175,6 +212,67 @@ export function RsvpForm() {
           <option>VIP Rest &amp; Restore Lounge</option>
           <option>SC Spa &amp; Wellness Association Membership</option>
         </select>
+      </div>
+
+      <div>
+        <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-navy-600">
+          Which classes are you interested in?{" "}
+          <span className="normal-case text-navy-400">(optional, select any)</span>
+        </label>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {wellnessClasses.map((c) => {
+            const checked = form.classInterests.includes(c);
+            return (
+              <label
+                key={c}
+                className={`flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-xs font-medium transition-colors ${
+                  checked
+                    ? "border-gold-500 bg-gold-50 text-navy-800"
+                    : "border-navy-100 text-navy-600 hover:border-gold-300"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  onChange={() => toggleClassInterest(c)}
+                  className="h-3.5 w-3.5 rounded border-navy-300 text-gold-600 focus:ring-gold-600"
+                />
+                {c}
+              </label>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div>
+          <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-navy-600">
+            Class Experience Level <span className="normal-case text-navy-400">(optional)</span>
+          </label>
+          <select
+            value={form.experienceLevel}
+            onChange={(e) => updateField("experienceLevel", e.target.value)}
+            className="w-full rounded-md border border-navy-100 bg-white px-4 py-2.5 text-sm text-navy-800 focus:border-gold-600 focus:outline-none focus:ring-1 focus:ring-gold-600"
+          >
+            <option value="">Prefer not to say</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+            <option value="Not Sure">Not Sure</option>
+          </select>
+        </div>
+        <div>
+          <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-navy-600">
+            Dietary / Accessibility Needs <span className="normal-case text-navy-400">(optional)</span>
+          </label>
+          <input
+            type="text"
+            value={form.accessibilityNotes}
+            onChange={(e) => updateField("accessibilityNotes", e.target.value)}
+            className="w-full rounded-md border border-navy-100 px-4 py-2.5 text-sm text-navy-800 focus:border-gold-600 focus:outline-none focus:ring-1 focus:ring-gold-600"
+            placeholder="e.g. mobility considerations, allergies"
+          />
+        </div>
       </div>
 
       <div>

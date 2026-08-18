@@ -7,6 +7,9 @@ export interface RsvpPayload {
   phone?: string;
   organization?: string;
   interest?: string;
+  classInterests?: string[];
+  experienceLevel?: string;
+  accessibilityNotes?: string;
   message?: string;
   // Honeypot field — real visitors never see or fill this input. Any
   // value here means the submission came from a bot.
@@ -43,6 +46,10 @@ export async function POST(request: Request) {
     );
   }
 
+  const classInterests = Array.isArray(body.classInterests)
+    ? body.classInterests.filter(Boolean).join(", ")
+    : "";
+
   const mailgunApiKey = process.env.MAILGUN_API_KEY;
   const mailgunDomain = process.env.MAILGUN_DOMAIN || "mg.scwellness.org";
   // Supports a single address or a comma-separated list, e.g.
@@ -73,6 +80,9 @@ export async function POST(request: Request) {
         `Phone: ${body.phone ?? "-"}`,
         `Organization: ${body.organization ?? "-"}`,
         `Interest: ${body.interest ?? "-"}`,
+        `Class Interests: ${classInterests || "-"}`,
+        `Experience Level: ${body.experienceLevel ?? "-"}`,
+        `Accessibility / Dietary Notes: ${body.accessibilityNotes ?? "-"}`,
         `Message: ${body.message ?? "-"}`,
       ];
 
@@ -101,13 +111,14 @@ export async function POST(request: Request) {
   }
 
   // If a Google Sheets Apps Script webhook is configured, append the
-  // submission as a row for storage/record-keeping.
+  // submission as a row for storage/record-keeping. classInterests is
+  // flattened to a comma-separated string so it fits a single sheet cell.
   if (sheetsWebhookUrl) {
     try {
       await fetch(sheetsWebhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ ...body, classInterests }),
         redirect: "follow",
       });
     } catch (err) {
@@ -122,7 +133,7 @@ export async function POST(request: Request) {
       await fetch(ghlWebhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ ...body, classInterests }),
       });
     } catch (err) {
       console.error("GoHighLevel webhook failed:", err);
