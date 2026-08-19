@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Handshake } from "lucide-react";
 import { fetchContentRows, type CmsRow } from "@/lib/cms";
 import { siteConfig } from "@/lib/site-config";
+import { SocialLinks } from "@/components/social-links";
 
 const description =
   "Meet the sponsors and partners making South Carolina Wellness Weekend possible — who they are, why they're participating, and what to experience from them.";
@@ -92,26 +93,21 @@ export default async function SponsorsPage() {
                       &ldquo;{s.WhySupport}&rdquo;
                     </p>
                   )}
-                  <div className="mt-4 flex flex-wrap gap-3">
-                    {s.Website && (
-                      <a
-                        href={s.Website}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-gold-700 hover:text-gold-600"
-                      >
-                        Visit Website <ArrowRight className="h-3 w-3" />
-                      </a>
-                    )}
-                    {s.LinkedScheduleItemID && (
-                      <Link
-                        href={`/schedule#${s.LinkedScheduleItemID}`}
-                        className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-gold-700 hover:text-gold-600"
-                      >
-                        See Their Experience <ArrowRight className="h-3 w-3" />
-                      </Link>
-                    )}
-                  </div>
+                  <SocialLinks
+                    className="mt-4"
+                    website={s.Website}
+                    instagram={s.Instagram}
+                    facebook={s.Facebook}
+                    linkedin={s.LinkedIn}
+                  />
+                  {s.LinkedScheduleItemID && (
+                    <Link
+                      href={`/schedule#${s.LinkedScheduleItemID}`}
+                      className="mt-3 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-navy-700 underline hover:text-navy-500"
+                    >
+                      See Their Experience <ArrowRight className="h-3 w-3" />
+                    </Link>
+                  )}
                 </div>
               </div>
             ))}

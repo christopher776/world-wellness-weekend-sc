@@ -3,9 +3,10 @@ import Link from "next/link";
 import { Clock, MapPin } from "lucide-react";
 import { fetchContentRows, type CmsRow } from "@/lib/cms";
 import { siteConfig } from "@/lib/site-config";
+import { formatEventDate, formatEventTimeRange } from "@/lib/format-datetime";
 
 const description =
-  "The full South Carolina Wellness Weekend schedule — classes, panels, and activations for Friday, September 18 and Saturday, September 19, 2026 in Charleston, SC.";
+  "The full South Carolina Wellness Weekend schedule — classes, panels, and activations for Friday, September 18 and Saturday, September 19, 2026 in Charleston, SC (all times Eastern).";
 
 export const metadata: Metadata = {
   title: "Schedule of Events",
@@ -65,6 +66,9 @@ export default async function SchedulePage() {
           <p className="mt-4 text-navy-600">
             Everything happening at South Carolina Wellness Weekend, organized by day and time.
           </p>
+          <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-navy-400">
+            All times are Eastern Time (Charleston, SC)
+          </p>
         </div>
       </section>
 
@@ -78,7 +82,7 @@ export default async function SchedulePage() {
             {sortedDates.map((date) => (
               <div key={date}>
                 <h2 className="mb-6 font-serif text-2xl font-bold uppercase tracking-wide text-navy-800">
-                  {date}
+                  {formatEventDate(date) || date}
                 </h2>
                 <div className="space-y-4">
                   {byDate.get(date)!.map((item) => {
@@ -104,8 +108,7 @@ export default async function SchedulePage() {
                           {(item.StartTime || item.EndTime) && (
                             <span className="flex items-center gap-1">
                               <Clock className="h-3.5 w-3.5" />
-                              {item.StartTime}
-                              {item.EndTime && `–${item.EndTime}`}
+                              {formatEventTimeRange(item.StartTime, item.EndTime)}
                             </span>
                           )}
                           {item.Location && (

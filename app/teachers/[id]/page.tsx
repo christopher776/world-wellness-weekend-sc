@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, GraduationCap } from "lucide-react";
 import { fetchContentRows, truthy } from "@/lib/cms";
 import { siteConfig } from "@/lib/site-config";
+import { SocialLinks } from "@/components/social-links";
+import { formatEventDate, formatEventTimeRange } from "@/lib/format-datetime";
 
 export const revalidate = 60;
 
@@ -65,12 +67,15 @@ export default async function TeacherProfilePage({
           {teacher.BusinessName && (
             <p className="mt-1 text-sm font-semibold text-navy-700">{teacher.BusinessName}</p>
           )}
-          <div className="mt-3 flex flex-wrap justify-center gap-3 text-xs text-gold-700 sm:justify-start">
-            {teacher.Website && <a href={teacher.Website} target="_blank" rel="noreferrer" className="underline">Website</a>}
-            {teacher.Instagram && <a href={`https://instagram.com/${teacher.Instagram.replace("@", "")}`} target="_blank" rel="noreferrer" className="underline">Instagram</a>}
-            {teacher.Facebook && <a href={teacher.Facebook} target="_blank" rel="noreferrer" className="underline">Facebook</a>}
-            {teacher.LinkedIn && <a href={teacher.LinkedIn} target="_blank" rel="noreferrer" className="underline">LinkedIn</a>}
-          </div>
+          <SocialLinks
+            className="mt-3 justify-center sm:justify-start"
+            website={teacher.Website}
+            instagram={teacher.Instagram}
+            facebook={teacher.Facebook}
+            linkedin={teacher.LinkedIn}
+            otherLink={teacher.OtherLinks}
+            otherLabel="More"
+          />
         </div>
       </div>
 
@@ -99,8 +104,10 @@ export default async function TeacherProfilePage({
             <p className="mt-3 text-sm text-navy-600">{teacher.ClassDescriptionFull}</p>
           )}
           <p className="mt-3 text-xs text-navy-400">
-            {teacher.ClassDate} {teacher.StartTime && `· ${teacher.StartTime}`}
-            {teacher.EndTime && `–${teacher.EndTime}`} {teacher.Location && `· ${teacher.Location}`}
+            {formatEventDate(teacher.ClassDate)}
+            {(teacher.StartTime || teacher.EndTime) &&
+              ` · ${formatEventTimeRange(teacher.StartTime, teacher.EndTime)}`}
+            {teacher.Location && ` · ${teacher.Location}`}
           </p>
           {(truthy(teacher.Complimentary) || truthy(teacher.DonationBased) || truthy(teacher.TicketRequired) || truthy(teacher.VipOnly)) && (
             <p className="mt-2 flex flex-wrap gap-2">

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { GraduationCap } from "lucide-react";
 import { fetchContentRows } from "@/lib/cms";
 import { siteConfig } from "@/lib/site-config";
+import { SocialLinks } from "@/components/social-links";
 
 const description =
   "Meet the inspiring wellness professionals bringing South Carolina Wellness Weekend to life — instructors, educators, facilitators, panelists, and presenters.";
@@ -48,32 +49,42 @@ export default async function TeachersPage() {
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {teachers.map((t) => (
-              <Link
+              <div
                 key={t.ID}
-                href={`/teachers/${t.ID}`}
                 className="flex flex-col items-center rounded-xl border border-navy-100 bg-white p-6 text-center shadow-sm transition-shadow hover:shadow-md"
               >
-                {t.HeadshotURL ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={t.HeadshotURL}
-                    alt={t.FullName}
-                    className="h-24 w-24 rounded-full object-cover"
-                  />
-                ) : (
-                  <div className="flex h-24 w-24 items-center justify-center rounded-full bg-cream-200 text-gold-700">
-                    <GraduationCap className="h-8 w-8" />
-                  </div>
-                )}
-                <p className="mt-4 font-serif text-lg font-bold text-navy-800">{t.FullName}</p>
-                <p className="text-xs uppercase tracking-wide text-gold-700">{t.Title}</p>
-                {t.BusinessName && <p className="text-xs text-navy-400">{t.BusinessName}</p>}
-                {t.ClassTitle && (
-                  <p className="mt-3 rounded-full bg-cream-200 px-3 py-1 text-xs text-navy-600">
-                    {t.ClassTitle}
-                  </p>
-                )}
-              </Link>
+                <Link href={`/teachers/${t.ID}`} className="flex flex-col items-center">
+                  {t.HeadshotURL ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={t.HeadshotURL}
+                      alt={t.FullName}
+                      className="h-24 w-24 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-24 w-24 items-center justify-center rounded-full bg-cream-200 text-gold-700">
+                      <GraduationCap className="h-8 w-8" />
+                    </div>
+                  )}
+                  <p className="mt-4 font-serif text-lg font-bold text-navy-800">{t.FullName}</p>
+                  <p className="text-xs uppercase tracking-wide text-gold-700">{t.Title}</p>
+                  {t.BusinessName && <p className="text-xs text-navy-400">{t.BusinessName}</p>}
+                  {t.ClassTitle && (
+                    <p className="mt-3 rounded-full bg-cream-200 px-3 py-1 text-xs text-navy-600">
+                      {t.ClassTitle}
+                    </p>
+                  )}
+                </Link>
+                <SocialLinks
+                  variant="icons"
+                  className="mt-4 justify-center"
+                  website={t.Website}
+                  instagram={t.Instagram}
+                  facebook={t.Facebook}
+                  linkedin={t.LinkedIn}
+                  otherLink={t.OtherLinks}
+                />
+              </div>
             ))}
           </div>
         )}

@@ -3,6 +3,7 @@ import { Heart, Users } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { fetchContentRows } from "@/lib/cms";
 import { siteConfig } from "@/lib/site-config";
+import { SocialLinks } from "@/components/social-links";
 
 const description =
   "Who we are, why we're bringing South Carolina Wellness Weekend to Charleston, and the organizers behind the inaugural event.";
@@ -148,6 +149,13 @@ export default async function AboutPage() {
                       {org.SimpleTip}
                     </p>
                   )}
+                  <SocialLinks
+                    className="mt-4"
+                    website={org.Website}
+                    instagram={org.Instagram}
+                    linkedin={org.LinkedIn}
+                    otherLink={org.OtherSocial}
+                  />
                 </div>
               ))}
             </div>
