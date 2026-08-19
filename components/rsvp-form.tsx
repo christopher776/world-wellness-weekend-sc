@@ -12,7 +12,7 @@ interface RsvpFormProps {
   defaultInterest?: string;
 }
 
-export function RsvpForm({ defaultInterest = "General Updates" }: RsvpFormProps = {}) {
+export function RsvpForm({ defaultInterest = "General Updates (RSVP)" }: RsvpFormProps = {}) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [form, setForm] = useState({
@@ -210,7 +210,7 @@ export function RsvpForm({ defaultInterest = "General Updates" }: RsvpFormProps 
           onChange={(e) => updateField("interest", e.target.value)}
           className="w-full rounded-md border border-navy-100 bg-white px-4 py-2.5 text-sm text-navy-800 focus:border-gold-600 focus:outline-none focus:ring-1 focus:ring-gold-600"
         >
-          <option>General Updates</option>
+          <option>General Updates (RSVP)</option>
           <option>VIP Ticket Access</option>
           <option>Sponsorship &amp; Exhibitor Opportunities</option>
           <option>Room Rentals</option>
@@ -218,7 +218,27 @@ export function RsvpForm({ defaultInterest = "General Updates" }: RsvpFormProps 
           <option>VIP Rest &amp; Restore Lounge</option>
           <option>SC Spa &amp; Wellness Association Membership</option>
         </select>
+        <p className="mt-1 text-xs text-navy-400">
+          Choose &ldquo;General Updates (RSVP)&rdquo; to simply RSVP, or &ldquo;VIP Ticket
+          Access&rdquo; to purchase VIP access below.
+        </p>
       </div>
+
+      {form.interest === "VIP Ticket Access" && (
+        <div className="rounded-xl border border-gold-400/50 bg-navy-800 p-6 text-center text-cream-100">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-400">
+            VIP Access Requires Payment
+          </p>
+          <h3 className="mt-2 font-serif text-xl font-bold">VIP Experience — {vipTicket.price}</h3>
+          <p className="mx-auto mt-2 max-w-md text-sm text-navy-100">
+            VIP access is a paid upgrade processed securely through Authorize.Net. Click below to
+            pay now — you can still submit the form below to also get on our updates list.
+          </p>
+          <div className="mx-auto mt-4 max-w-xs">
+            <PaymentButton linkId={vipTicket.linkId} label="Pay for VIP Access" />
+          </div>
+        </div>
+      )}
 
       <div>
         <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-navy-600">
