@@ -88,6 +88,34 @@ function doPost(e) {
   return jsonResponse({ ok: true });
 }
 
+// Charleston, SC is always Eastern Time.
+var EVENT_TIME_ZONE = "America/New_York";
+
+// Google Sheets auto-converts recognizable date/time text (like the
+// "2026-09-18" or "9:00 AM" the admin forms save) into real Date-typed
+// cells. Naively stringifying those with String(value) produces
+// JavaScript's verbose toString() output, e.g.
+// "Fri Sep 18 2026 20:00:00 GMT-0400 (Eastern Daylight Time)" — exactly
+// the GMT/UTC-laden text the site must never show. Format explicitly by
+// column instead, anchored to Eastern Time, with no timezone suffix.
+function formatCellValue(value, header) {
+  if (value === undefined || value === null) return "";
+  if (!(value instanceof Date)) return String(value);
+
+  var h = String(header || "").toLowerCase();
+  if (h.indexOf("time") !== -1) {
+    // Time-only fields (StartTime, EndTime) — Sheets anchors these on
+    // Dec 30, 1899; only the time-of-day portion matters.
+    return Utilities.formatDate(value, EVENT_TIME_ZONE, "h:mm a");
+  }
+  if (h.indexOf("date") !== -1) {
+    // Date-only fields (Date, ClassDate).
+    return Utilities.formatDate(value, EVENT_TIME_ZONE, "yyyy-MM-dd");
+  }
+  // Fallback for any other Date-typed cell.
+  return Utilities.formatDate(value, EVENT_TIME_ZONE, "yyyy-MM-dd HH:mm");
+}
+
 function doGet(e) {
   if (e.parameter.action === "list") {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -99,7 +127,7 @@ function doGet(e) {
     var rows = data.slice(1).map(function (r) {
       var obj = {};
       headers.forEach(function (h, i) {
-        obj[h] = r[i] === undefined || r[i] === null ? "" : String(r[i]);
+        obj[h] = formatCellValue(r[i], h);
       });
       return obj;
     });
