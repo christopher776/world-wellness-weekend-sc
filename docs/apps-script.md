@@ -154,6 +154,18 @@ The "Submissions" tab header row should read (columns A–K):
 The last three columns support the class-interest fields added to the RSVP
 & Updates form.
 
+## Posts sheet header row
+
+A new "Posts" tab was added for the blog feature. Its header row reads
+(columns A–M):
+
+`ID | Title | Slug | FeaturedImageURL | Excerpt | Content | Author | PublishDate | Category | Tags | MetaTitle | MetaDescription | Published`
+
+No Code.gs changes were needed for this — the existing generic `doGet`/`doPost`
+handlers and the `formatCellValue` date/time formatting (matches any header
+containing "date" or "time", so `PublishDate` is covered automatically) work
+for any sheet name passed in.
+
 ## Vercel environment variables to add
 
 | Variable | Value |

@@ -193,7 +193,7 @@ export function ContentForm({ def, initialValues, id }: ContentFormProps) {
                 required={field.required}
                 value={values[field.name] || ""}
                 onChange={(e) => set(field.name, e.target.value)}
-                rows={4}
+                rows={field.rows ?? 4}
                 className="w-full rounded-md border border-navy-100 px-4 py-2.5 text-sm text-navy-800 focus:border-gold-600 focus:outline-none focus:ring-1 focus:ring-gold-600"
               />
               {field.helpText && <p className="mt-1 text-xs text-navy-400">{field.helpText}</p>}

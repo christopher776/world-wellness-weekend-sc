@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Sparkles, Ticket } from "lucide-react";
 import { RsvpForm } from "@/components/rsvp-form";
+import { FaqJsonLd } from "@/components/json-ld";
 import { siteConfig } from "@/lib/site-config";
 import { vipTicket } from "@/lib/data";
 
@@ -40,6 +41,7 @@ const faqs = [
 export default function VipTicketsPage() {
   return (
     <div>
+      <FaqJsonLd faqs={faqs} />
       <section className="bg-gradient-to-b from-navy-800 to-navy-900 py-20 text-center text-cream-100">
         <div className="mx-auto max-w-3xl px-6">
           <Sparkles className="mx-auto mb-4 h-8 w-8 text-gold-400" />
