@@ -7,7 +7,12 @@ import { PaymentButton } from "@/components/payment-button";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-export function RsvpForm() {
+interface RsvpFormProps {
+  /** Pre-selects the "I'm interested in" dropdown — e.g. "VIP Ticket Access" when embedded on the VIP Tickets page. */
+  defaultInterest?: string;
+}
+
+export function RsvpForm({ defaultInterest = "General Updates" }: RsvpFormProps = {}) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [form, setForm] = useState({
@@ -15,7 +20,7 @@ export function RsvpForm() {
     email: "",
     phone: "",
     organization: "",
-    interest: "General Updates",
+    interest: defaultInterest,
     classInterests: [] as string[],
     experienceLevel: "",
     accessibilityNotes: "",
@@ -59,7 +64,7 @@ export function RsvpForm() {
         email: "",
         phone: "",
         organization: "",
-        interest: "General Updates",
+        interest: defaultInterest,
         classInterests: [],
         experienceLevel: "",
         accessibilityNotes: "",
@@ -206,6 +211,7 @@ export function RsvpForm() {
           className="w-full rounded-md border border-navy-100 bg-white px-4 py-2.5 text-sm text-navy-800 focus:border-gold-600 focus:outline-none focus:ring-1 focus:ring-gold-600"
         >
           <option>General Updates</option>
+          <option>VIP Ticket Access</option>
           <option>Sponsorship &amp; Exhibitor Opportunities</option>
           <option>Room Rentals</option>
           <option>Teaching a Wellness Class</option>

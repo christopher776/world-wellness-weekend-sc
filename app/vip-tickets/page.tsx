@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Sparkles, Ticket } from "lucide-react";
-import { PaymentButton } from "@/components/payment-button";
+import { RsvpForm } from "@/components/rsvp-form";
 import { siteConfig } from "@/lib/site-config";
 import { vipTicket } from "@/lib/data";
 
 const description =
-  "South Carolina Wellness Weekend VIP Experience — $100, 100 tickets available. Priority access, a VIP reception, and exclusive experiences in Charleston, SC.";
+  "South Carolina Wellness Weekend VIP Experience — $100, 100 tickets available. Sign up and reserve priority access, a VIP reception, and exclusive experiences in Charleston, SC.";
 
 export const metadata: Metadata = {
   title: "VIP Tickets",
@@ -53,10 +53,29 @@ export default function VipTicketsPage() {
             Charleston, SC
           </p>
           <p className="mx-auto mt-6 max-w-xl text-navy-100">{vipTicket.description}</p>
-          <div className="mx-auto mt-8 max-w-xs">
-            <PaymentButton linkId={vipTicket.linkId} label="Reserve Your VIP Ticket" />
-          </div>
+          <a
+            href="#signup"
+            className="mt-8 inline-flex items-center justify-center rounded-md bg-gold-600 px-8 py-4 text-sm font-semibold uppercase tracking-wide text-navy-900 shadow-sm transition-colors hover:bg-gold-700"
+          >
+            Sign Up &amp; Reserve Your VIP Ticket
+          </a>
         </div>
+      </section>
+
+      <section id="signup" className="scroll-mt-24 mx-auto max-w-3xl px-6 py-20">
+        <div className="mb-8 text-center">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.3em] text-gold-700">
+            Sign Up First
+          </p>
+          <h2 className="font-serif text-3xl font-bold text-navy-800">
+            Tell Us a Bit About Yourself
+          </h2>
+          <p className="mt-3 text-navy-600">
+            Sign up below and we&apos;ll present the option to purchase your VIP ticket right
+            after — this also gets you on the list for event updates and class schedules.
+          </p>
+        </div>
+        <RsvpForm defaultInterest="VIP Ticket Access" />
       </section>
 
       <section className="mx-auto max-w-4xl px-6 py-20">
@@ -94,9 +113,12 @@ export default function VipTicketsPage() {
       </section>
 
       <section className="mx-auto max-w-4xl px-6 py-16 text-center">
-        <div className="mx-auto max-w-xs">
-          <PaymentButton linkId={vipTicket.linkId} label="Reserve Your VIP Ticket" />
-        </div>
+        <a
+          href="#signup"
+          className="inline-flex items-center justify-center rounded-md bg-gold-600 px-8 py-4 text-sm font-semibold uppercase tracking-wide text-navy-900 shadow-sm transition-colors hover:bg-gold-700"
+        >
+          Sign Up &amp; Reserve Your VIP Ticket
+        </a>
       </section>
     </div>
   );
