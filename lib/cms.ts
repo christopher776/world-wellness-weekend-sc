@@ -6,6 +6,17 @@ import { CONTENT_TYPES, type ContentTypeSlug } from "@/lib/cms-schema";
 // `action: "upsert"` POST bodies (admin write, secret-gated).
 const CMS_URL = process.env.CMS_WEBHOOK_URL || process.env.GOOGLE_SHEETS_WEBHOOK_URL;
 
+// Google's Apps Script exec endpoint (script.google.com/.../exec) returns a
+// 404 HTML page to requests that don't send a browser-like User-Agent —
+// which is exactly what server-side fetch() (Vercel/Node's undici) sends by
+// default. Without this header, every list request silently fails and
+// fetchRows below returns [] (its safe-fallback), making the public pages
+// look empty even when the sheet has published rows. Always send this.
+const CMS_FETCH_HEADERS = {
+  "User-Agent":
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+};
+
 export type CmsRow = Record<string, string>;
 
 function truthy(v: string | undefined): boolean {
@@ -27,6 +38,7 @@ export async function fetchRows(
   try {
     const url = `${CMS_URL}?action=list&sheet=${encodeURIComponent(sheetName)}`;
     const res = await fetch(url, {
+      headers: CMS_FETCH_HEADERS,
       next: { revalidate: opts.revalidate ?? 60 },
     });
     if (!res.ok) return [];
@@ -77,7 +89,7 @@ export async function upsertRow(
   try {
     const res = await fetch(CMS_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", ...CMS_FETCH_HEADERS },
       body: JSON.stringify({ action: "upsert", sheet: sheetName, secret, row }),
       redirect: "follow",
     });
