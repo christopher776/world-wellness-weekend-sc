@@ -26,31 +26,60 @@ function truthy(v: string | undefined): boolean {
 
 export { truthy };
 
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 /**
  * Reads every row from a content tab. Returns [] (never throws) if the CMS
  * isn't configured yet or the request fails, so pages still render.
+ *
+ * Google's Apps Script exec endpoint is intermittently flaky — it
+ * occasionally 404s or errors for a moment even when correctly deployed.
+ * Since a "successful" empty-array render gets cached by Next's ISR for
+ * `revalidate` seconds, a single transient failure here would flash the
+ * "check back soon" empty state to real visitors until the next
+ * revalidation. Retry a couple of times before giving up so a fleeting
+ * hiccup doesn't get baked into the cached page.
  */
 export async function fetchRows(
   sheetName: string,
   opts: { publishedOnly?: boolean; revalidate?: number } = {}
 ): Promise<CmsRow[]> {
   if (!CMS_URL) return [];
-  try {
-    const url = `${CMS_URL}?action=list&sheet=${encodeURIComponent(sheetName)}`;
-    const res = await fetch(url, {
-      headers: CMS_FETCH_HEADERS,
-      next: { revalidate: opts.revalidate ?? 60 },
-    });
-    if (!res.ok) return [];
-    const data = await res.json();
-    const rows: CmsRow[] = Array.isArray(data?.rows) ? data.rows : [];
-    if (opts.publishedOnly) {
-      return rows.filter((r) => truthy(r.Published));
+
+  const url = `${CMS_URL}?action=list&sheet=${encodeURIComponent(sheetName)}`;
+  const maxAttempts = 3;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const res = await fetch(url, {
+        headers: CMS_FETCH_HEADERS,
+        next: { revalidate: opts.revalidate ?? 60 },
+      });
+      if (!res.ok) {
+        if (attempt < maxAttempts) {
+          await sleep(400 * attempt);
+          continue;
+        }
+        return [];
+      }
+      const data = await res.json();
+      const rows: CmsRow[] = Array.isArray(data?.rows) ? data.rows : [];
+      if (opts.publishedOnly) {
+        return rows.filter((r) => truthy(r.Published));
+      }
+      return rows;
+    } catch {
+      if (attempt < maxAttempts) {
+        await sleep(400 * attempt);
+        continue;
+      }
+      return [];
     }
-    return rows;
-  } catch {
-    return [];
   }
+
+  return [];
 }
 
 export async function fetchContentRows(
@@ -86,24 +115,42 @@ export async function upsertRow(
   if (!secret) {
     return { ok: false, error: "ADMIN_API_SECRET is not configured." };
   }
-  try {
-    const res = await fetch(CMS_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...CMS_FETCH_HEADERS },
-      body: JSON.stringify({ action: "upsert", sheet: sheetName, secret, row }),
-      redirect: "follow",
-    });
-    if (!res.ok) {
-      return { ok: false, error: `CMS responded with status ${res.status}` };
+
+  const maxAttempts = 3;
+  let lastError = "Unknown error";
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const res = await fetch(CMS_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...CMS_FETCH_HEADERS },
+        body: JSON.stringify({ action: "upsert", sheet: sheetName, secret, row }),
+        redirect: "follow",
+      });
+      if (!res.ok) {
+        lastError = `CMS responded with status ${res.status}`;
+        if (attempt < maxAttempts) {
+          await sleep(400 * attempt);
+          continue;
+        }
+        return { ok: false, error: lastError };
+      }
+      const data = await res.json().catch(() => ({}));
+      if (data?.ok === false) {
+        return { ok: false, error: data?.error || "Unknown CMS error" };
+      }
+      return { ok: true };
+    } catch (err) {
+      lastError = err instanceof Error ? err.message : "Unknown error";
+      if (attempt < maxAttempts) {
+        await sleep(400 * attempt);
+        continue;
+      }
+      return { ok: false, error: lastError };
     }
-    const data = await res.json().catch(() => ({}));
-    if (data?.ok === false) {
-      return { ok: false, error: data?.error || "Unknown CMS error" };
-    }
-    return { ok: true };
-  } catch (err) {
-    return { ok: false, error: err instanceof Error ? err.message : "Unknown error" };
   }
+
+  return { ok: false, error: lastError };
 }
 
 export function newId(prefix: string): string {
