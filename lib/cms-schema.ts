@@ -10,6 +10,8 @@ export interface FieldDef {
   type: FieldType;
   required?: boolean;
   helpText?: string;
+  /** Optional row count override for textarea fields (default 4). */
+  rows?: number;
 }
 
 export interface ContentTypeDef {
@@ -129,6 +131,55 @@ export const CONTENT_TYPES: Record<string, ContentTypeDef> = {
       { name: "WhySupport", label: "“Why did you choose to support this event?”", type: "textarea" },
       { name: "WellnessMeaning", label: "“What does wellness mean to your organization?”", type: "textarea" },
       { name: "LinkedScheduleItemID", label: "Linked Schedule Item ID", type: "text", helpText: "The ID of their class/panel/activation on the Schedule tab, if any" },
+      { name: "Published", label: "Published (visible on site)", type: "checkbox" },
+    ],
+  },
+  posts: {
+    slug: "posts",
+    label: "Blog Posts",
+    sheetName: "Posts",
+    idPrefix: "post",
+    fields: [
+      { name: "Title", label: "Post Title", type: "text", required: true },
+      {
+        name: "Slug",
+        label: "URL Slug",
+        type: "text",
+        required: true,
+        helpText: "Lowercase, hyphens only, e.g. 5-wellness-tips-for-fall — used in the post URL: /blog/your-slug",
+      },
+      { name: "FeaturedImageURL", label: "Featured Image", type: "image" },
+      {
+        name: "Excerpt",
+        label: "Excerpt / Summary (used as the SEO meta description if no override is set below)",
+        type: "textarea",
+        required: true,
+        helpText: "1-2 sentences, ideally under 155 characters for search results.",
+      },
+      {
+        name: "Content",
+        label: "Post Content",
+        type: "textarea",
+        required: true,
+        rows: 16,
+        helpText: "Plain text. Leave a blank line between paragraphs.",
+      },
+      { name: "Author", label: "Author Name", type: "text" },
+      { name: "PublishDate", label: "Publish Date", type: "date", required: true },
+      { name: "Category", label: "Category", type: "text", helpText: "e.g. Wellness Tips, Event News, Charleston Guide" },
+      { name: "Tags", label: "Tags", type: "text", helpText: "Comma-separated, e.g. yoga, meditation, charleston" },
+      {
+        name: "MetaTitle",
+        label: "SEO Title Override (optional)",
+        type: "text",
+        helpText: "Leave blank to use the Post Title. Keep under 60 characters.",
+      },
+      {
+        name: "MetaDescription",
+        label: "SEO Meta Description Override (optional)",
+        type: "textarea",
+        helpText: "Leave blank to use the Excerpt. Keep under 155 characters.",
+      },
       { name: "Published", label: "Published (visible on site)", type: "checkbox" },
     ],
   },

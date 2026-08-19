@@ -13,19 +13,29 @@ export const siteConfig = {
     "wellness exhibitor opportunities Charleston",
     "wellness conference sponsorship South Carolina",
     "Charleston SC spa event 2026",
+    "wellness blog Charleston SC",
+    "Charleston wellness tips",
+    "things to do Charleston SC wellness",
+    "yoga meditation Charleston South Carolina",
+    "Charleston SC wellness classes",
   ],
   event: {
     name: "South Carolina Wellness Weekend",
     startDate: "2026-09-18",
     endDate: "2026-09-19",
-    venueName: "Charleston, South Carolina",
+    venueName: "The Francis Marion Hotel",
     address: {
+      streetAddress: "387 King Street",
       addressLocality: "Charleston",
       addressRegion: "SC",
+      postalCode: "29403",
       addressCountry: "US",
     },
   },
   contactEmail: "info@scwellness.org",
+  // Used for Organization/LocalBusiness structured data (sameAs) — Local &
+  // AI SEO signals that tie the site to its known social presence.
+  socialProfiles: ["https://www.instagram.com/scworldwellnessweekend"],
   ogImage:
     "https://galaxy-prod.tlcdn.com/gen/fd48ac951c374690a68eab1c0e2a0e3a.png",
   logoImage:

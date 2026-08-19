@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Users, GraduationCap, Handshake, CalendarDays } from "lucide-react";
+import { Users, GraduationCap, Handshake, CalendarDays, Newspaper } from "lucide-react";
 import { CONTENT_TYPES } from "@/lib/cms-schema";
 import { SignOutButton } from "@/components/admin/sign-out-button";
 
@@ -8,6 +8,7 @@ const icons: Record<string, typeof Users> = {
   teachers: GraduationCap,
   sponsors: Handshake,
   schedule: CalendarDays,
+  posts: Newspaper,
 };
 
 export default function AdminDashboardPage() {
@@ -20,9 +21,9 @@ export default function AdminDashboardPage() {
           </p>
           <h1 className="font-serif text-3xl font-bold text-navy-800">Manage Site Content</h1>
           <p className="mt-2 text-sm text-navy-600">
-            Add or update organizers, teachers, sponsors, and schedule items. Changes go live
-            immediately — no redeploy needed. Remember to check &ldquo;Published&rdquo; when an
-            entry is ready to appear on the site.
+            Add or update organizers, teachers, sponsors, schedule items, and blog posts. Changes
+            go live immediately — no redeploy needed. Remember to check &ldquo;Published&rdquo;
+            when an entry is ready to appear on the site.
           </p>
         </div>
         <SignOutButton />

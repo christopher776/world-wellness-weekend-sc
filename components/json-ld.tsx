@@ -40,7 +40,17 @@ export function JsonLd() {
     name: "South Carolina Spa & Wellness Association",
     url: siteConfig.url,
     logo: siteConfig.logoImage,
-    sameAs: [],
+    sameAs: siteConfig.socialProfiles,
+    // Local SEO signal: ties the organization to the Charleston, SC event
+    // location it actually operates in.
+    address: {
+      "@type": "PostalAddress",
+      ...siteConfig.event.address,
+    },
+    areaServed: {
+      "@type": "State",
+      name: "South Carolina",
+    },
     contactPoint: {
       "@type": "ContactPoint",
       email: siteConfig.contactEmail,
@@ -59,5 +69,33 @@ export function JsonLd() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
     </>
+  );
+}
+
+/**
+ * Renders a schema.org FAQPage block for any page with a Q&A list —
+ * powers Google's FAQ rich results and gives AI answer engines
+ * (ChatGPT, Perplexity, Google AI Overviews) clean, directly-quotable
+ * question/answer pairs.
+ */
+export function FaqJsonLd({ faqs }: { faqs: { q: string; a: string }[] }) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.a,
+      },
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
   );
 }

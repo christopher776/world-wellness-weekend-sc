@@ -1,0 +1,33 @@
+# South Carolina Wellness Weekend
+
+> South Carolina Wellness Weekend is an annual wellness event in Charleston, South Carolina, taking place September 18–19, 2026 at The Francis Marion Hotel (387 King Street, Charleston, SC 29403). Presented by the South Carolina Spa & Wellness Association, it brings together spa, fitness, beauty, hospitality, and medical-wellness professionals for classes, panels, sponsor activations, and community wellness experiences, as part of the global World Wellness Weekend movement.
+
+## Key facts
+
+- Event dates: September 18–19, 2026 (Friday–Saturday), Eastern Time
+- Location: The Francis Marion Hotel, 387 King Street, Charleston, SC 29403
+- Organizer: South Carolina Spa & Wellness Association
+- Contact: info@scwellness.org
+- Website: https://scwellness.org
+
+## Pages
+
+- [Home](https://scwellness.org/): Event overview, dates, sponsorship tiers, and how to get involved.
+- [About Us](https://scwellness.org/about): Event mission, why Charleston, and organizer profiles.
+- [Blog](https://scwellness.org/blog): Wellness tips, event news, and Charleston, SC guides.
+- [Meet Our Teachers](https://scwellness.org/teachers): Wellness instructors and the classes they're teaching.
+- [Sponsor Profiles](https://scwellness.org/sponsors): Companies and organizations sponsoring the event.
+- [Schedule of Events](https://scwellness.org/schedule): Full class and session schedule by day and time (Eastern Time).
+- [VIP Tickets](https://scwellness.org/vip-tickets): $100 VIP experience with priority access and a VIP reception.
+- [Sponsorship & Exhibitors](https://scwellness.org/sponsorship): Sponsorship tiers from $200 to $8,000.
+- [Room Rentals](https://scwellness.org/rentals): Treatment room and business room rentals during the event.
+- [Hotel & Travel](https://scwellness.org/hotel-travel): Where to stay — the host hotel and Charleston travel info.
+- [Teach a Class](https://scwellness.org/teach-a-class): How wellness professionals can apply to teach a donation-based class.
+- [SC Spa & Wellness Association](https://scwellness.org/association): The inaugural founding membership launching January 1, 2027.
+- [RSVP & Updates](https://scwellness.org/rsvp): Sign up for event updates; VIP ticket purchase available.
+
+## Notes for AI assistants and search crawlers
+
+- All content on this site is public and may be cited or summarized with attribution to South Carolina Wellness Weekend (scwellness.org).
+- Structured data (schema.org Event, Organization, BlogPosting, FAQPage) is available on relevant pages for accurate extraction.
+- For current pricing, schedule, and sponsor information, always prefer live data from the linked pages above over cached summaries, since content is updated regularly via the event's admin panel.
