@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Flame, ArrowRight, Lock } from "lucide-react";
+import { Flame, ArrowRight, Lock, Check } from "lucide-react";
 import { CountdownTimer } from "@/components/countdown-timer";
 import { vipTicket } from "@/lib/data";
 
@@ -12,6 +12,12 @@ interface VipFomoSectionProps {
   heading?: string;
   ctaLabel?: string;
   className?: string;
+  /** Show the full VIP benefits checklist (VIP reception, priority
+   * registration & classes, spa & wellness gift bag, branded yoga mat,
+   * etc). Defaults to true so benefits appear everywhere this section is
+   * used — homepage, sponsorship page, and via the matching list on the
+   * VIP Tickets page itself. */
+  showBenefits?: boolean;
 }
 
 /**
@@ -25,6 +31,7 @@ export function VipFomoSection({
   heading = "Don't Miss the VIP Experience",
   ctaLabel = "Reserve Your VIP Ticket",
   className = "",
+  showBenefits = true,
 }: VipFomoSectionProps) {
   return (
     <section
@@ -38,6 +45,17 @@ export function VipFomoSection({
         <h2 className="font-serif text-3xl font-bold md:text-4xl">{heading}</h2>
         <p className="mx-auto mt-4 max-w-xl text-navy-100">{vipTicket.description}</p>
         <p className="mt-6 font-serif text-5xl font-bold text-gold-400">{vipTicket.price}</p>
+
+        {showBenefits && (
+          <ul className="mx-auto mt-8 grid max-w-xl grid-cols-1 gap-3 text-left sm:grid-cols-2">
+            {vipTicket.inclusions.map((item) => (
+              <li key={item} className="flex items-start gap-2 text-sm text-navy-100">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        )}
 
         <div className="mt-8">
           <CountdownTimer

@@ -41,22 +41,28 @@ export default function SponsorshipPage() {
         </div>
       </section>
 
+      {/* Individual VIP ticket urgency / FOMO — placed at the very top of
+          the page, above the sponsor tiers, since it's the highest-priority
+          conversion for individual attendees. Distinct from the $8,000 VIP
+          Lounge business sponsorship further down the page. */}
+      <VipFomoSection
+        eyebrow="For Individual Attendees"
+        heading="Reserve Your VIP Access Today"
+        ctaLabel="Get VIP Access"
+      />
+
       <section className="mx-auto max-w-6xl px-6 py-20">
+        <SectionHeading
+          eyebrow="Sponsorship & Exhibitor Tiers"
+          title="Reserve Your Sponsorship Tier"
+          subtitle="For businesses & organizations — every level includes a Founding Membership in the South Carolina Spa & Wellness Association."
+        />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {sponsorTiers.map((tier) => (
             <TierCard key={tier.slug} tier={tier} />
           ))}
         </div>
       </section>
-
-      {/* Individual VIP ticket urgency / FOMO — distinct from the VIP Lounge
-          business sponsorship below. This targets attendees deciding whether
-          to upgrade their own visit, not businesses sponsoring the event. */}
-      <VipFomoSection
-        eyebrow="For Individual Attendees"
-        heading="Not Sponsoring? Reserve Your Own VIP Access"
-        ctaLabel="Get VIP Access"
-      />
 
       <section className="bg-navy-800 py-20 text-cream-100">
         <div className="mx-auto max-w-5xl px-6">

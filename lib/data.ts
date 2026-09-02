@@ -168,9 +168,10 @@ export const vipTicket = {
   description:
     "Priority access, a dedicated VIP reception, and exclusive experiences throughout South Carolina Wellness Weekend — designed for guests who want the full weekend at its best.",
   inclusions: [
-    "Priority seating at all general sessions",
     "VIP reception with food & beverage",
-    "VIP gift bag",
+    "Priority registration & seating at all general sessions and classes",
+    "VIP spa & wellness gift bag valued at $250 or more",
+    "Branded South Carolina Wellness Weekend yoga mat",
     "Access to VIP-only classes and experiences",
     "Sponsor gifts and exclusive experiences",
   ],
