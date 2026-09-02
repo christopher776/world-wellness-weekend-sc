@@ -148,20 +148,32 @@ function MobileGroup({
   );
 }
 
-/** High-urgency pill that always points at /vip-tickets — shown alongside
- * the standard nav links (desktop) and at the top of the mobile menu, so
- * VIP ticket scarcity/FOMO messaging is visible from every page. */
+/** Circular, high-urgency badge that always points at /vip-tickets — a
+ * white "bubble" with a pulsing gold ring, shown alongside the standard nav
+ * links (desktop) and at the top of the mobile menu, so VIP ticket
+ * scarcity/FOMO messaging stays visible from every page. */
 function VipNavBadge({ className = "", onClick }: { className?: string; onClick?: () => void }) {
   return (
     <Link
       href="/vip-tickets"
       onClick={onClick}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-red-500 to-gold-600 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition-opacity hover:opacity-90 animate-pulse",
+        "relative inline-flex h-[76px] w-[76px] shrink-0 items-center justify-center rounded-full bg-white text-center shadow-md ring-2 ring-gold-500 transition-transform hover:scale-105",
         className
       )}
     >
-      <Flame className="h-3 w-3" /> VIP Access &mdash; Limited
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 rounded-full ring-2 ring-red-400 animate-ping"
+      />
+      <span className="relative flex flex-col items-center gap-0.5 px-1.5">
+        <Flame className="h-3 w-3 text-red-500" />
+        <span className="text-[9.5px] font-bold uppercase leading-tight tracking-tight text-navy-800">
+          Reserve
+          <br />
+          VIP Access
+        </span>
+      </span>
     </Link>
   );
 }
@@ -226,7 +238,9 @@ export function Nav() {
 
       {open && (
         <nav className="md:hidden border-t border-gold-100 bg-cream-100 px-6 py-4 space-y-4">
-          <VipNavBadge className="w-full justify-center" onClick={() => setOpen(false)} />
+          <div className="flex justify-center">
+            <VipNavBadge onClick={() => setOpen(false)} />
+          </div>
           {navStructure.map((entry) =>
             isGroup(entry) ? (
               <MobileGroup
