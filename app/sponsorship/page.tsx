@@ -2,6 +2,7 @@ import { Star, Check } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { TierCard } from "@/components/tier-card";
 import { PaymentButton } from "@/components/payment-button";
+import { VipFomoSection } from "@/components/vip-fomo-section";
 import { sponsorTiers, vipLounge } from "@/lib/data";
 import { siteConfig } from "@/lib/site-config";
 import type { Metadata } from "next";
@@ -47,6 +48,15 @@ export default function SponsorshipPage() {
           ))}
         </div>
       </section>
+
+      {/* Individual VIP ticket urgency / FOMO — distinct from the VIP Lounge
+          business sponsorship below. This targets attendees deciding whether
+          to upgrade their own visit, not businesses sponsoring the event. */}
+      <VipFomoSection
+        eyebrow="For Individual Attendees"
+        heading="Not Sponsoring? Reserve Your Own VIP Access"
+        ctaLabel="Get VIP Access"
+      />
 
       <section className="bg-navy-800 py-20 text-cream-100">
         <div className="mx-auto max-w-5xl px-6">

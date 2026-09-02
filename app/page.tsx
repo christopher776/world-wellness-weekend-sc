@@ -10,6 +10,7 @@ import {
 import { SectionHeading } from "@/components/section-heading";
 import { StatBadge } from "@/components/stat-badge";
 import { Logo } from "@/components/logo";
+import { VipFomoSection } from "@/components/vip-fomo-section";
 import {
   importantDates,
   sponsorTiers,
@@ -61,6 +62,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* VIP urgency / FOMO */}
+      <VipFomoSection />
 
       {/* About */}
       <section className="mx-auto max-w-6xl px-6 py-20">

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Flame } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 
@@ -148,6 +148,24 @@ function MobileGroup({
   );
 }
 
+/** High-urgency pill that always points at /vip-tickets — shown alongside
+ * the standard nav links (desktop) and at the top of the mobile menu, so
+ * VIP ticket scarcity/FOMO messaging is visible from every page. */
+function VipNavBadge({ className = "", onClick }: { className?: string; onClick?: () => void }) {
+  return (
+    <Link
+      href="/vip-tickets"
+      onClick={onClick}
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-red-500 to-gold-600 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition-opacity hover:opacity-90 animate-pulse",
+        className
+      )}
+    >
+      <Flame className="h-3 w-3" /> VIP Access &mdash; Limited
+    </Link>
+  );
+}
+
 export function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -188,6 +206,7 @@ export function Nav() {
               </Link>
             )
           )}
+          <VipNavBadge className="hidden lg:inline-flex" />
           <Link
             href="/sponsorship"
             className="rounded-md bg-navy-800 px-5 py-2 text-sm font-semibold uppercase tracking-wide text-cream-100 hover:bg-navy-600 transition-colors"
@@ -207,6 +226,7 @@ export function Nav() {
 
       {open && (
         <nav className="md:hidden border-t border-gold-100 bg-cream-100 px-6 py-4 space-y-4">
+          <VipNavBadge className="w-full justify-center" onClick={() => setOpen(false)} />
           {navStructure.map((entry) =>
             isGroup(entry) ? (
               <MobileGroup
