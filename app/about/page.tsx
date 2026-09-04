@@ -67,7 +67,7 @@ export default async function AboutPage() {
             perfect backdrop for a wellness celebration rooted in community and connection. Its
             walkable downtown, thriving spa and hospitality scene, and reputation as a destination
             for travelers seeking restorative experiences make Charleston an ideal home for the
-            inaugural South Carolina Wellness Fair.
+            inaugural South Carolina Wellness Weekend.
           </p>
         </div>
         <div>
@@ -88,7 +88,7 @@ export default async function AboutPage() {
             Our Host Location
           </h2>
           <p className="mt-3">
-            The inaugural South Carolina Wellness Fair is co-hosted by the Francis Marion Hotel and
+            The inaugural South Carolina Wellness Weekend is co-hosted by the Francis Marion Hotel and
             The Spa of Charleston, two iconic Charleston institutions known for their commitment to
             hospitality, luxury, and guest wellbeing. The Francis Marion Hotel provides a historic,
             elegant setting for workshops, panels, and community activations, while The Spa of
