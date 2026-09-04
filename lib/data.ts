@@ -122,12 +122,6 @@ export const rentals = {
   },
 };
 
-export const importantDates = [
-  { label: "Early Bird Sponsorship Deadline", date: "July 30, 2026" },
-  { label: "Vendor Sponsorship Reservations Close", date: "August 15, 2026" },
-  { label: "Final Artwork & Payment Due", date: "August 30, 2026" },
-  { label: "Event Dates", date: "September 18–19, 2026" },
-];
 
 export const associationBenefits = [
   "Founding Member designation",

@@ -6,18 +6,19 @@ import {
   Users,
   Heart,
   ArrowRight,
+  Mail,
 } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { StatBadge } from "@/components/stat-badge";
 import { Logo } from "@/components/logo";
 import { VipFomoSection } from "@/components/vip-fomo-section";
 import {
-  importantDates,
   sponsorTiers,
   wellnessClasses,
   whyCharleston,
   charlestonImages,
 } from "@/lib/data";
+import { siteConfig } from "@/lib/site-config";
 
 export default function HomePage() {
   return (
@@ -227,20 +228,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Important dates */}
+      {/* Event dates & contact */}
       <section className="bg-cream-200 py-20">
-        <div className="mx-auto max-w-4xl px-6">
-          <SectionHeading eyebrow="Mark Your Calendar" title="Important Dates" />
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {importantDates.map((d) => (
-              <div
-                key={d.label}
-                className="flex items-center justify-between rounded-lg border border-gold-100 bg-white px-6 py-4"
+        <div className="mx-auto max-w-2xl px-6 text-center">
+          <SectionHeading eyebrow="Mark Your Calendar" title="Event Dates" />
+          <div className="rounded-xl border border-gold-100 bg-white px-8 py-10">
+            <p className="flex items-center justify-center gap-3 font-serif text-3xl font-bold text-navy-800 md:text-4xl">
+              <Calendar className="h-7 w-7 text-gold-600" />
+              September 18&ndash;19, 2026
+            </p>
+            <p className="mx-auto mt-5 max-w-md text-sm text-navy-600">
+              Contact{" "}
+              <a
+                href={`mailto:${siteConfig.contactEmail}`}
+                className="inline-flex items-center gap-1 font-semibold text-gold-700 hover:text-gold-600"
               >
-                <span className="text-sm text-navy-600">{d.label}</span>
-                <span className="font-serif font-bold text-navy-800">{d.date}</span>
-              </div>
-            ))}
+                <Mail className="h-3.5 w-3.5" />
+                {siteConfig.contactEmail}
+              </a>{" "}
+              to get involved today.
+            </p>
           </div>
         </div>
       </section>
