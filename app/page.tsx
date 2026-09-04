@@ -16,6 +16,7 @@ import {
   sponsorTiers,
   wellnessClasses,
   whyCharleston,
+  charlestonImages,
 } from "@/lib/data";
 
 export default function HomePage() {
@@ -59,6 +60,30 @@ export default function HomePage() {
             <StatBadge icon={Calendar} label="Event Dates" value="Sep 18–19, 2026" />
             <StatBadge icon={MapPin} label="Location" value="Charleston, SC" />
             <StatBadge icon={Sparkles} label="Early Bird Deadline" value="July 30, 2026" />
+          </div>
+        </div>
+      </section>
+
+      {/* Charleston welcome banner */}
+      <section className="relative">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={charlestonImages.rainbowRow}
+          alt="Colorful historic Rainbow Row houses in Charleston, South Carolina"
+          className="h-72 w-full object-cover sm:h-96 md:h-[28rem]"
+        />
+        <div className="absolute inset-0 flex items-center justify-center bg-navy-900/40 px-6 text-center">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-300">
+              Welcome To
+            </p>
+            <h2 className="mt-2 font-serif text-3xl font-bold text-white md:text-5xl">
+              Historic Charleston, South Carolina
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-sm text-cream-100 md:text-base">
+              Cobblestone streets, waterfront sunsets, and Southern hospitality — the perfect
+              setting for a weekend of wellness and connection.
+            </p>
           </div>
         </div>
       </section>
@@ -151,19 +176,54 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why Charleston */}
+      {/* Why Charleston — photo gallery + reasons */}
       <section className="mx-auto max-w-6xl px-6 py-20">
-        <SectionHeading eyebrow="Why Charleston?" title="The perfect backdrop for wellness" />
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
-          {whyCharleston.map((reason) => (
-            <div
-              key={reason}
-              className="flex items-start gap-3 rounded-lg border border-navy-100 bg-white p-5"
+        <SectionHeading
+          eyebrow="Why Charleston?"
+          title="The perfect backdrop for wellness"
+          subtitle="Come a day early or stay a day late — Charleston's historic streets, waterfront views, and Southern hospitality make the trip worth it on their own."
+        />
+
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-center">
+          {/* Photo mosaic */}
+          <div className="grid grid-cols-2 gap-4">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={charlestonImages.carriageTour}
+              alt="A horse-drawn carriage tour on a historic Charleston, South Carolina street"
+              className="col-span-2 h-48 w-full rounded-xl object-cover sm:h-56"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={charlestonImages.gaslitAlley}
+              alt="A gaslit cobblestone alley in historic Charleston, South Carolina at dusk"
+              className="h-36 w-full rounded-xl object-cover sm:h-44"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={charlestonImages.batteryPark}
+              alt="Battery Park waterfront in Charleston, South Carolina with palmetto trees"
+              className="h-36 w-full rounded-xl object-cover sm:h-44"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 gap-4">
+            {whyCharleston.map((reason) => (
+              <div
+                key={reason}
+                className="flex items-start gap-3 rounded-lg border border-navy-100 bg-white p-5"
+              >
+                <Heart className="mt-0.5 h-4 w-4 shrink-0 text-gold-600" />
+                <p className="text-sm text-navy-600">{reason}</p>
+              </div>
+            ))}
+            <Link
+              href="/hotel-travel"
+              className="mt-2 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-gold-700 hover:text-gold-600"
             >
-              <Heart className="mt-0.5 h-4 w-4 shrink-0 text-gold-600" />
-              <p className="text-sm text-navy-600">{reason}</p>
-            </div>
-          ))}
+              Explore Charleston &amp; book your stay <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
 

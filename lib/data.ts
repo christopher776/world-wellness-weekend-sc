@@ -204,8 +204,8 @@ export const speakerTopics = [
   "Reiki & Energy Healing",
 ];
 
-// AI-generated Charleston imagery used across the Hotel & Travel and
-// Teach/Speak pages.
+// AI-generated Charleston imagery used across the homepage, Hotel & Travel,
+// and Teach/Speak pages.
 export const charlestonImages = {
   historicStreet:
     "https://g.tlcdn.com/gen/794ea8e4893c45f99c550863512ff258.png",
@@ -213,6 +213,9 @@ export const charlestonImages = {
     "https://g.tlcdn.com/gen/2d09696133304c04abfca93d0500d263.png",
   ballroom: "https://g.tlcdn.com/gen/0928f3fc3ba64e6fbd64d0d5f6a8e5ae.png",
   waterfront: "https://g.tlcdn.com/gen/42e9d080741e499fb0bdd2d9db0386d6.png",
+  rainbowRow: "https://g.tlcdn.com/gen/2a04c138e6db45a09acbf17bc8a266ab.png",
+  gaslitAlley: "https://g.tlcdn.com/gen/3f66548cc0904b2c9ca3929b00f2fdb8.png",
+  batteryPark: "https://g.tlcdn.com/gen/9356e53707d34bacad093c4983b07b45.png",
 };
 
 // Francis Marion Hotel facts — sourced from historichotels.org and the
