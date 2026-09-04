@@ -41,7 +41,7 @@ const navStructure: NavEntry[] = [
     label: "Get Involved",
     children: [
       { href: "/sponsorship", label: "Sponsorship & Exhibitors" },
-      { href: "/teach-a-class", label: "Teach a Class" },
+      { href: "/teach-a-class", label: "Teach or Speak" },
       { href: "/rentals", label: "Room Rentals" },
     ],
   },

@@ -166,9 +166,9 @@ export const vipTicket = {
   price: "$100",
   ticketsAvailable: 100,
   description:
-    "Priority access, a dedicated VIP reception, and exclusive experiences throughout South Carolina Wellness Weekend — designed for guests who want the full weekend at its best.",
+    "Priority access, a VIP Opening Night Party in the Francis Marion Hotel's historic Carolina Ballroom, and exclusive experiences throughout South Carolina Wellness Weekend — designed for guests who want the full weekend at its best.",
   inclusions: [
-    "VIP reception with food & beverage",
+    "VIP Opening Night Party in the historic Carolina Ballroom",
     "Priority registration & seating at all general sessions and classes",
     "VIP spa & wellness gift bag valued at $250 or more",
     "Branded South Carolina Wellness Weekend yoga mat",
@@ -176,4 +176,72 @@ export const vipTicket = {
     "Sponsor gifts and exclusive experiences",
   ],
   linkId: "dab6ea0e-9422-4739-82fc-44c2d9fb714c",
+};
+
+// Speaker topics — the categories we're actively recruiting speakers for.
+// Combines the organizer's requested specialties with additional
+// high-interest wellness topics researched from current wellness industry
+// conferences (Global Wellness Summit 2026 Trends, McKinsey Future of
+// Wellness survey) — longevity/peptides, functional medicine, women's
+// health, mental health, sleep science, and wellness travel are all
+// currently trending topics with strong community draw.
+export const speakerTopics = [
+  "Chiropractic Care",
+  "Dental & Oral Health",
+  "Dermatology & Skincare",
+  "The Business of Wellness",
+  "Art Therapy",
+  "Peptide Therapy & Longevity",
+  "Gardening for Wellness",
+  "Music & Sound Healing",
+  "Wellness Travel Planning",
+  "Functional & Integrative Medicine",
+  "Women's Health & Hormone Balance",
+  "Mental Health & Mindfulness",
+  "Sleep Science & Recovery",
+  "Nutrition & Gut Health",
+  "Corporate & Workplace Wellness",
+  "Reiki & Energy Healing",
+];
+
+// AI-generated Charleston imagery used across the Hotel & Travel and
+// Teach/Speak pages.
+export const charlestonImages = {
+  historicStreet:
+    "https://g.tlcdn.com/gen/794ea8e4893c45f99c550863512ff258.png",
+  carriageTour:
+    "https://g.tlcdn.com/gen/2d09696133304c04abfca93d0500d263.png",
+  ballroom: "https://g.tlcdn.com/gen/0928f3fc3ba64e6fbd64d0d5f6a8e5ae.png",
+  waterfront: "https://g.tlcdn.com/gen/42e9d080741e499fb0bdd2d9db0386d6.png",
+};
+
+// Francis Marion Hotel facts — sourced from historichotels.org and the
+// hotel's own event-space page (francismarionhotel.com/event-space-details).
+export const francisMarionHotel = {
+  yearBuilt: 1924,
+  architecture: "Beaux-Arts",
+  historicHotelsOfAmericaSince: 1999,
+  nationalRegisterYear: 1984,
+  roomCount: 235,
+  eventSpaces: [
+    {
+      name: "Carolina Ballroom & Mezzanine",
+      description:
+        "The hotel's largest and most flexible event space, added in 2004, blending historical charm with a modern feel. This is where the VIP Opening Night Party will take place.",
+      occupancy: "Up to 350 seated · 500 reception style",
+      isVip: true,
+    },
+    {
+      name: "Colonial Ballroom",
+      description:
+        "The hotel's original dining room just off the grand lobby, featuring eight expansive Palladian windows overlooking Marion Square and a striking fireplace.",
+      occupancy: "200 seated · 250 reception style",
+    },
+    {
+      name: "Gold Ballroom",
+      description:
+        "Adorned with handcrafted trim, hardwood floors, and crystal chandeliers, with an orchestra balcony overlooking the room — home to several of the weekend's speaker sessions.",
+      occupancy: "130 seated · 200 reception style",
+    },
+  ],
 };

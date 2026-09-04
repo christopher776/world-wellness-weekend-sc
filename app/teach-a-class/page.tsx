@@ -6,17 +6,27 @@ import {
   DoorOpen,
   FileCheck2,
   ShieldCheck,
+  Mic2,
 } from "lucide-react";
+import { speakerTopics, charlestonImages } from "@/lib/data";
+import { siteConfig } from "@/lib/site-config";
 
 const responderUrl =
   "https://docs.google.com/forms/d/e/1FAIpQLScOB5TsDzCsF5K4srwUypUi86wRr1D6WI4bai0NjFs9CyhlEQ/viewform";
 
+const description =
+  "Apply to teach a class or speak at South Carolina Wellness Weekend, Charleston SC — chiropractic care, dermatology, art therapy, peptide therapy, wellness travel, and more.";
+
 export const metadata: Metadata = {
-  title: "Teach a Class",
-  description:
-    "Apply to teach a donation-based wellness class at South Carolina Wellness Weekend.",
+  title: "Teach or Speak",
+  description,
   alternates: {
     canonical: "/teach-a-class",
+  },
+  openGraph: {
+    title: `Teach or Speak | ${siteConfig.shortName}`,
+    description,
+    url: `${siteConfig.url}/teach-a-class`,
   },
 };
 
@@ -26,14 +36,16 @@ export default function TeachAClassPage() {
       <section className="bg-gradient-to-b from-cream-200 to-cream-100">
         <div className="mx-auto max-w-5xl px-6 py-16 text-center md:py-20">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-700">
-            Wellness Class Opportunities
+            Speaker &amp; Wellness Class Opportunities
           </p>
           <h1 className="mt-4 font-serif text-4xl font-bold text-navy-800 md:text-5xl">
-            Apply to Teach a Class
+            Apply to Teach or Speak
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-navy-600">
             Share your expertise during South Carolina Wellness Weekend,
-            September 18&ndash;19, 2026, in Charleston.
+            September 18&ndash;19, 2026, in Charleston. We welcome movement
+            instructors, medical and wellness professionals, and speakers
+            from every corner of the wellness world.
           </p>
 
           <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-3">
@@ -50,27 +62,62 @@ export default function TeachAClassPage() {
               <p className="mt-3 font-semibold text-navy-800">Insurance required</p>
             </div>
           </div>
-
-          <p className="mx-auto mt-8 max-w-2xl text-sm text-navy-500">
-            The application requests a headshot, logo, and proof of liability
-            insurance. Because files are uploaded to Google Drive, applicants
-            must sign in to a Google account.
-          </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-4 py-12 md:px-6 md:py-16">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={charlestonImages.waterfront}
+        alt="The Charleston, South Carolina waterfront at sunset"
+        className="h-56 w-full object-cover sm:h-72"
+      />
+
+      {/* Speaker topics */}
+      <section className="mx-auto max-w-5xl px-6 py-20">
+        <div className="mb-10 text-center">
+          <Mic2 className="mx-auto mb-3 h-7 w-7 text-gold-600" />
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.3em] text-gold-700">
+            Speaker Topics
+          </p>
+          <h2 className="font-serif text-3xl font-bold text-navy-800">
+            We&apos;re Looking for Speakers In
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-navy-600">
+            These are examples of the topics our community is most excited about — don&apos;t
+            see your specialty listed? We welcome any topic connected to wellness and wellbeing,
+            so apply anyway.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-3">
+          {speakerTopics.map((topic) => (
+            <span
+              key={topic}
+              className="rounded-full border border-gold-200 bg-cream-100 px-4 py-2 text-sm font-medium text-navy-700"
+            >
+              {topic}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 pb-12 md:px-6 md:pb-16">
         <div className="rounded-2xl border border-gold-100 bg-white px-6 py-10 text-center shadow-sm md:px-12 md:py-14">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-cream-200 text-gold-700">
             <ShieldCheck className="h-7 w-7" aria-hidden="true" />
           </div>
           <h2 className="mt-6 font-serif text-3xl font-bold text-navy-800">
-            Instructor Application
+            Speaker &amp; Instructor Application
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-navy-600">
             The application opens securely in Google Forms. Sign in with a
             Google account to upload your headshot, logo, and proof of liability
             insurance.
+          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-navy-500">
+            The application requests a headshot, logo, and proof of liability
+            insurance. Because files are uploaded to Google Drive, applicants
+            must sign in to a Google account.
           </p>
           <Link
             href={responderUrl}
@@ -78,7 +125,7 @@ export default function TeachAClassPage() {
             rel="noreferrer"
             className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-navy-800 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-navy-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-600 focus-visible:ring-offset-2"
           >
-            Open Instructor Application
+            Open Speaker &amp; Instructor Application
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
           </Link>
           <p className="mt-4 text-xs text-navy-500">
