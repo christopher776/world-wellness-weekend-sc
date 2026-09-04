@@ -40,7 +40,7 @@ export function VipFomoSection({
       <div className="mx-auto max-w-3xl px-6">
         <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-red-500/15 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-red-300 ring-1 ring-red-400/40">
           <Flame className="h-3.5 w-3.5" />
-          {eyebrow} &mdash; Only {vipTicket.ticketsAvailable} VIP Tickets, Ever
+          {eyebrow} &mdash; Only {vipTicket.ticketsAvailable} VIP Tickets
         </span>
         <h2 className="font-serif text-3xl font-bold md:text-4xl">{heading}</h2>
         <p className="mx-auto mt-4 max-w-xl text-navy-100">{vipTicket.description}</p>

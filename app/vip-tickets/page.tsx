@@ -141,7 +141,7 @@ export default function VipTicketsPage() {
 
       <section className="mx-auto max-w-4xl px-6 py-16 text-center">
         <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-red-50 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-red-600 ring-1 ring-red-200">
-          <Flame className="h-3.5 w-3.5" /> Only {vipTicket.ticketsAvailable} Tickets, Ever
+          <Flame className="h-3.5 w-3.5" /> Only {vipTicket.ticketsAvailable} Tickets
         </span>
         <div>
           <a
