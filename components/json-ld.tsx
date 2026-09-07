@@ -40,7 +40,7 @@ export function JsonLd() {
     name: "South Carolina Spa & Wellness Association",
     url: siteConfig.url,
     logo: siteConfig.logoImage,
-    sameAs: siteConfig.socialProfiles,
+    sameAs: Object.values(siteConfig.socialProfiles),
     // Local SEO signal: ties the organization to the Charleston, SC event
     // location it actually operates in.
     address: {

@@ -7,11 +7,15 @@ import {
   Heart,
   ArrowRight,
   Mail,
+  Instagram,
+  Facebook,
+  Linkedin,
 } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { StatBadge } from "@/components/stat-badge";
 import { Logo } from "@/components/logo";
 import { VipFomoSection } from "@/components/vip-fomo-section";
+import { TikTokIcon } from "@/components/tiktok-icon";
 import {
   sponsorTiers,
   wellnessClasses,
@@ -19,6 +23,13 @@ import {
   charlestonImages,
 } from "@/lib/data";
 import { siteConfig } from "@/lib/site-config";
+
+const socialLinks = [
+  { key: "instagram", href: siteConfig.socialProfiles.instagram, label: "Instagram", Icon: Instagram },
+  { key: "facebook", href: siteConfig.socialProfiles.facebook, label: "Facebook", Icon: Facebook },
+  { key: "tiktok", href: siteConfig.socialProfiles.tiktok, label: "TikTok", Icon: TikTokIcon },
+  { key: "linkedin", href: siteConfig.socialProfiles.linkedin, label: "LinkedIn", Icon: Linkedin },
+];
 
 export default function HomePage() {
   return (
@@ -62,6 +73,7 @@ export default function HomePage() {
             <StatBadge icon={MapPin} label="Location" value="Charleston, SC" />
             <StatBadge icon={Sparkles} label="Early Bird Deadline" value="July 30, 2026" />
           </div>
+
         </div>
       </section>
 
@@ -249,6 +261,31 @@ export default function HomePage() {
               to get involved today.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Follow Us */}
+      <section className="mx-auto max-w-3xl px-6 py-16 text-center">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.3em] text-gold-700">
+          Follow the Journey
+        </p>
+        <h2 className="font-serif text-2xl font-bold text-navy-800 md:text-3xl">
+          Follow Us for Updates
+        </h2>
+        <div className="mt-6 flex items-center justify-center gap-4">
+          {socialLinks.map(({ key, href, label, Icon }) => (
+            <a
+              key={key}
+              href={href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={label}
+              title={label}
+              className="flex h-12 w-12 items-center justify-center rounded-full bg-navy-800 text-cream-100 transition-colors hover:bg-gold-600 hover:text-navy-900"
+            >
+              <Icon className="h-5 w-5" />
+            </a>
+          ))}
         </div>
       </section>
 

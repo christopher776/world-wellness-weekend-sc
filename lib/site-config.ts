@@ -34,8 +34,15 @@ export const siteConfig = {
   },
   contactEmail: "info@scwellness.org",
   // Used for Organization/LocalBusiness structured data (sameAs) — Local &
-  // AI SEO signals that tie the site to its known social presence.
-  socialProfiles: ["https://www.instagram.com/scworldwellnessweekend"],
+  // AI SEO signals that tie the site to its known social presence — and for
+  // the "Follow Us" section on the homepage.
+  socialProfiles: {
+    instagram: "https://www.instagram.com/scwellnessweekend",
+    facebook: "https://www.facebook.com/share/14jEeNabKgy/",
+    tiktok: "https://www.tiktok.com/@scwellness.org",
+    linkedin:
+      "https://www.linkedin.com/in/south-carolina-spa-and-wellness-association-6a2119423/",
+  },
   ogImage:
     "https://galaxy-prod.tlcdn.com/gen/fd48ac951c374690a68eab1c0e2a0e3a.png",
   logoImage:
