@@ -34,6 +34,7 @@ const navStructure: NavEntry[] = [
       { href: "/sponsors", label: "Sponsor Profiles" },
       { href: "/schedule", label: "Schedule of Events" },
       { href: "/vip-tickets", label: "VIP Tickets" },
+      { href: "/auction", label: "Wellness Auction" },
       { href: "/hotel-travel", label: "Hotel & Travel" },
     ],
   },
