@@ -10,6 +10,17 @@ import {
 } from "@/lib/auction";
 
 export async function POST(request: Request) {
+  if (process.env.AUCTION_BIDDING_ENABLED !== "true") {
+    return NextResponse.json(
+      {
+        ok: false,
+        error:
+          "Live bidding is not yet open. South Carolina auction licensure and sales-tax setup are being finalized.",
+      },
+      { status: 503 }
+    );
+  }
+
   let body: { token?: string; itemId?: string; amount?: number | string; website?: string };
   try {
     body = await request.json();
