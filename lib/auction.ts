@@ -105,11 +105,27 @@ export function bidCountForItem(itemId: string, bids: AuctionBid[]) {
   return bids.filter((bid) => bid.ItemID === itemId).length;
 }
 
+/**
+ * Auction admin values are entered as Charleston local time. Google Sheets
+ * may return those strings with either a T or a space and without a zone.
+ * During the September event Charleston is on EDT (UTC-04:00), so attach
+ * that offset explicitly rather than letting Vercel interpret the value as UTC.
+ */
+export function parseAuctionDateTime(value?: string | null) {
+  if (!value) return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  const hasZone = /(?:Z|[+-]\d{2}:?\d{2})$/i.test(trimmed);
+  const normalized = trimmed.replace(" ", "T");
+  const parsed = new Date(hasZone ? normalized : `${normalized}:00-04:00`);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
 export function auctionItemIsOpen(item: AuctionItem, now = new Date()) {
-  const opens = item.OpensAt ? new Date(item.OpensAt) : null;
-  const closes = item.ClosesAt ? new Date(item.ClosesAt) : null;
-  if (opens && !Number.isNaN(opens.getTime()) && now < opens) return false;
-  if (closes && !Number.isNaN(closes.getTime()) && now >= closes) return false;
+  const opens = parseAuctionDateTime(item.OpensAt);
+  const closes = parseAuctionDateTime(item.ClosesAt);
+  if (opens && now < opens) return false;
+  if (closes && now >= closes) return false;
   return true;
 }
 
