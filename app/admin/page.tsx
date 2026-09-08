@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Users, GraduationCap, Handshake, CalendarDays, Newspaper, Gavel } from "lucide-react";
+import { Users, GraduationCap, Handshake, CalendarDays, Newspaper, ShoppingBag } from "lucide-react";
 import { CONTENT_TYPES } from "@/lib/cms-schema";
 import { SignOutButton } from "@/components/admin/sign-out-button";
 
@@ -16,39 +16,28 @@ export default function AdminDashboardPage() {
     <div className="mx-auto max-w-4xl px-6 py-16">
       <div className="flex items-center justify-between">
         <div>
-          <p className="mb-1 text-xs font-semibold uppercase tracking-[0.3em] text-gold-700">
-            Admin
-          </p>
+          <p className="mb-1 text-xs font-semibold uppercase tracking-[0.3em] text-gold-700">Admin</p>
           <h1 className="font-serif text-3xl font-bold text-navy-800">Manage Site Content</h1>
           <p className="mt-2 text-sm text-navy-600">
-            Add or update organizers, teachers, sponsors, schedule items, blog posts and auction listings. Changes
-            go live immediately — no redeploy needed. Remember to check &ldquo;Published&rdquo;
-            when an entry is ready to appear on the site.
+            Add or update organizers, teachers, sponsors, schedule items, blog posts and Make It Mine marketplace listings. Published marketplace items use the live declining-price engine automatically.
           </p>
         </div>
         <SignOutButton />
       </div>
 
       <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <Link
-          href="/admin/auction"
-          className="flex items-start gap-4 rounded-xl border border-gold-200 bg-white p-6 shadow-sm transition-colors hover:border-gold-400"
-        >
-          <Gavel className="mt-0.5 h-6 w-6 shrink-0 text-gold-600" />
+        <Link href="/admin/marketplace" className="flex items-start gap-4 rounded-xl border border-gold-200 bg-white p-6 shadow-sm transition-colors hover:border-gold-400">
+          <ShoppingBag className="mt-0.5 h-6 w-6 shrink-0 text-gold-600" />
           <div>
-            <p className="font-serif text-lg font-bold text-navy-800">Auction Listings</p>
-            <p className="mt-1 text-sm text-navy-500">Photos, descriptions, values, bidding rules and publishing</p>
+            <p className="font-serif text-lg font-bold text-navy-800">Make It Mine Marketplace</p>
+            <p className="mt-1 text-sm text-navy-500">Photos, descriptions, retail price, countdown timing, inventory and publishing</p>
           </div>
         </Link>
 
         {Object.values(CONTENT_TYPES).map((def) => {
           const Icon = icons[def.slug] ?? Users;
           return (
-            <Link
-              key={def.slug}
-              href={`/admin/${def.slug}`}
-              className="flex items-start gap-4 rounded-xl border border-navy-100 bg-white p-6 shadow-sm transition-colors hover:border-gold-300"
-            >
+            <Link key={def.slug} href={`/admin/${def.slug}`} className="flex items-start gap-4 rounded-xl border border-navy-100 bg-white p-6 shadow-sm transition-colors hover:border-gold-300">
               <Icon className="mt-0.5 h-6 w-6 shrink-0 text-gold-600" />
               <div>
                 <p className="font-serif text-lg font-bold text-navy-800">{def.label}</p>
