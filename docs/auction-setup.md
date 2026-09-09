@@ -26,7 +26,7 @@ The site attempts a best-effort mirror of listing updates into `MarketplaceItems
 
 ## Payment
 
-The website's existing Authorize.Net Simple Checkout catalog uses fixed-price payment links and cannot safely accept the continuously changing marketplace price. The Make It Mine action therefore locks the current server price and inventory, captures purchaser contact information, and creates an order for secure payment follow-up. A dynamic Authorize.Net Accept Hosted or equivalent server-side checkout can be added later without changing the pricing or inventory engine.
+The website's existing Authorize.Net Simple Checkout catalog uses fixed-price payment links and cannot safely accept the continuously changing marketplace price. The Make It Mine action therefore locks the current server price and inventory, captures purchaser contact information, and creates a reserved order for secure payment follow-up. A reservation is not treated as paid until payment is successfully collected. A dynamic Authorize.Net Accept Hosted or equivalent server-side checkout can be added later without changing the pricing or inventory engine.
 
 ## Tax / legal display
 
