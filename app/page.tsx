@@ -53,18 +53,30 @@ export default function HomePage() {
             September 18&ndash;19, 2026.
           </p>
 
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/sponsorship"
-              className="inline-flex items-center gap-2 rounded-md bg-navy-800 px-8 py-4 text-sm font-semibold uppercase tracking-wide text-cream-100 hover:bg-navy-600 transition-colors"
+              className="inline-flex items-center gap-2 rounded-md bg-navy-800 px-8 py-4 text-sm font-semibold uppercase tracking-wide text-cream-100 transition-colors hover:bg-navy-600"
             >
               View Sponsorship Tiers <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/hotel-travel"
-              className="inline-flex items-center gap-2 rounded-md border-2 border-navy-800 px-8 py-4 text-sm font-semibold uppercase tracking-wide text-navy-800 hover:bg-navy-50 transition-colors"
+              className="inline-flex items-center gap-2 rounded-md border-2 border-navy-800 px-8 py-4 text-sm font-semibold uppercase tracking-wide text-navy-800 transition-colors hover:bg-navy-50"
             >
               Hotel &amp; Travel
+            </Link>
+            <Link
+              href="/marketplace"
+              className="inline-flex items-center gap-2 rounded-md bg-gold-600 px-8 py-4 text-sm font-semibold uppercase tracking-wide text-navy-900 shadow-sm transition-colors hover:bg-gold-700"
+            >
+              Explore Marketplace <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/vip-tickets"
+              className="inline-flex items-center gap-2 rounded-md border-2 border-gold-600 bg-white/60 px-8 py-4 text-sm font-semibold uppercase tracking-wide text-navy-800 transition-colors hover:bg-gold-50"
+            >
+              Attend as a VIP <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
