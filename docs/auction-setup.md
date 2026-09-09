@@ -3,7 +3,9 @@
 SC Wellness Weekend uses a fixed-price declining marketplace rather than an auction.
 
 ## Pricing rule
-Every listing starts at 100% of the administrator-entered retail value at `LaunchAt`. From that instant until `EndAt`, the offered price declines continuously and linearly with elapsed time. At `EndAt`, the mathematical floor is exactly 15% of retail. There are no bids, bid increments, competing offers or discrete discount steps. The browser updates the display every 100ms for a smooth visual decline. The purchase endpoint independently recalculates the price on the server at the instant a shopper submits a claim; the browser-displayed value is never trusted as the transaction price.
+Every listing starts at 100% of the administrator-entered retail value at `LaunchAt`. From that instant until `EndAt`, the offered price declines continuously and linearly with elapsed time. At `EndAt`, the mathematical price reaches exactly 15% of retail and remains at that floor until the listing is manually unpublished or reserved. There are no bids, bid increments, competing offers or discrete discount steps. For the event campaign, administrators should set `EndAt` to the official event close.
+
+The browser updates the display every 100ms for a smooth visual decline. The purchase endpoint independently recalculates the price on the server at the instant a shopper submits a reservation; the browser-displayed value is never trusted as the transaction price.
 
 ## Inventory
 Listings are created at `/admin/marketplace` with photo, description, provider, retail value, launch/end time, quantity, fulfillment, terms, tax category, featured and published status. The live source of truth is Vercel Blob, reusing the Blob store already configured for website image uploads. Each inventory unit has a deterministic claim slot written with overwrite disabled. The first successful write owns that slot, preventing two shoppers from reserving the same unit.
