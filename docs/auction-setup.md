@@ -25,5 +25,5 @@ The public page states that SC Wellness Weekend is not a charitable organization
 3. `/admin/marketplace` loads behind the existing admin authentication and confirms Blob storage is ready.
 4. Create the first listing as Draft, including photo, description, verified retail value, explicit tax category, launch time and event-close floor time.
 5. Review the public card before setting Published.
-6. For launch verification, use a controlled test listing and remove/release its reservation after the test. Do not use a live donated item for destructive testing.
+6. For launch verification, use a controlled test listing and remove/release its reservation after the test. Do not use a live contributed item for destructive testing.
 7. Confirm the operational process for collecting payment promptly after a reservation and releasing abandoned reservations.
