@@ -1,58 +1,33 @@
-# Auction activation setup
+# Make It Mine marketplace
 
-The auction feature reuses the website's existing Google Sheets CMS webhook and protected admin authentication. No new Vercel environment variables are required if the current CMS/admin setup is already working.
+SC Wellness Weekend uses a fixed-price declining marketplace rather than an auction.
 
-## Required Google Sheets tabs
+## Pricing rule
 
-Create these three tabs in the same spreadsheet already used by `CMS_WEBHOOK_URL` / `GOOGLE_SHEETS_WEBHOOK_URL`. The existing generic Apps Script `list` and authenticated `upsert` handlers support them without code changes.
+Every listing starts at 100% of the administrator-entered retail value at `LaunchAt`. From that instant until `EndAt`, the offered price declines continuously and linearly with elapsed time. At `EndAt`, the mathematical floor is exactly 15% of retail. There are no bids, bid increments, competing offers or discrete discount steps.
 
-### AuctionItems
+The browser updates the display every 100ms for a smooth visual decline. The purchase endpoint independently recalculates the price on the server at the instant a shopper submits a claim; the browser-displayed value is never trusted as the transaction price.
 
-Header row, columns A–N:
+## Inventory
 
-`ID | Title | PhotoURL | Description | DonorName | RetailValue | StartingBid | BidIncrement | OpensAt | ClosesAt | PickupDetails | Terms | Featured | Published`
+Listings are created at `/admin/marketplace` with photo, description, provider, retail value, launch/end time, quantity, fulfillment, terms, tax category, featured and published status. The live source of truth is Vercel Blob, reusing the Blob store already configured for website image uploads.
 
-Admin route: `/admin/auction`
+Each inventory unit has a deterministic claim slot written with overwrite disabled. The first successful write owns that slot, preventing two shoppers from claiming the same unit. Buyer contact information is stored separately in an encrypted order record.
 
-Public route: `/auction`
+## Operational spreadsheet
 
-### AuctionBidders
+The workbook `SC Wellness Make It Mine Marketplace` contains:
+- `MarketplaceItems`
+- `MarketplaceCustomers`
+- `MarketplaceOrders`
+- `Compliance`
 
-Header row, columns A–G:
+The site attempts a best-effort mirror of listing updates into `MarketplaceItems` through the existing CMS webhook. Blob remains the live commerce source of truth so marketplace operation does not depend on Apps Script availability.
 
-`ID | Name | DisplayName | Email | Phone | RegisteredAt | Status`
+## Payment
 
-Bidder contact details are never rendered publicly. The public UI uses only `DisplayName`, which is reduced to first name + last initial.
+The website's existing Authorize.Net Simple Checkout catalog uses fixed-price payment links and cannot safely accept the continuously changing marketplace price. The Make It Mine action therefore locks the current server price and inventory, captures purchaser contact information, and creates an order for secure payment follow-up. A dynamic Authorize.Net Accept Hosted or equivalent server-side checkout can be added later without changing the pricing or inventory engine.
 
-### AuctionBids
+## Tax / legal display
 
-Header row, columns A–F:
-
-`ID | ItemID | BidderID | BidderDisplay | Amount | Timestamp`
-
-Each accepted bid is stored as its own immutable row ID. Public status is calculated from the highest accepted `Amount` for each `ItemID`.
-
-## Admin workflow
-
-1. Sign in at `/admin`.
-2. Open **Auction Listings**.
-3. Upload the primary photo or paste an image URL.
-4. Enter title, description, donor, retail value, starting bid, bid increment, opening/closing times, pickup details and item terms.
-5. Check **Published / visible** when the listing is ready.
-6. The item appears on `/auction` immediately; no redeploy is required for catalog changes.
-
-## Bidder workflow
-
-1. Visitor opens `/auction`.
-2. Visitor registers once with name, email and mobile phone.
-3. The server writes the bidder record and returns a signed bidder session stored in the visitor's browser for 30 days.
-4. Each bid is validated server-side against the published item, opening/closing window, current high bid and configured increment.
-5. Accepted bids are stored in `AuctionBids`; the public page refreshes bidding status every 15 seconds.
-
-## Time zone
-
-Auction opening and closing values are treated as Charleston, South Carolina local time. For the September 2026 event, the backend explicitly evaluates those values as EDT (UTC-04:00) so Vercel's server timezone cannot shift a closing deadline.
-
-## Recommended next enhancement before a very high-volume auction
-
-The current implementation is suitable for event-scale bidding and validates every bid immediately before saving it. If the auction is expected to receive many simultaneous bids on the same item, move the final bid comparison + write into an Apps Script `LockService` transaction (or a transactional database) to make same-millisecond competing bids strictly atomic.
+The public page states that SC Wellness Weekend is not a charitable organization, marketplace purchases are retail transactions, purchases are not represented as tax-deductible contributions, and applicable tax is handled at payment. Item-level tax categories are retained for fulfillment/payment review.
