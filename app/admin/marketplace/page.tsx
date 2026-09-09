@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { ArrowLeft, ShoppingBag, Plus } from "lucide-react";
 import { MarketplaceForm } from "@/components/admin/marketplace-form";
-import { fetchMarketplaceItems } from "@/lib/marketplace";
+import { fetchMarketplaceItems, type MarketplaceItem } from "@/lib/marketplace";
 
 export const dynamic = "force-dynamic";
 
 export default async function MarketplaceAdminPage() {
-  let items = [];
+  let items: MarketplaceItem[] = [];
   try { items = await fetchMarketplaceItems(); } catch { items = []; }
   return <div className="mx-auto max-w-4xl px-6 py-16">
     <Link href="/admin" className="mb-6 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-navy-400 hover:text-navy-600"><ArrowLeft className="h-3.5 w-3.5"/> Back to Admin</Link>
