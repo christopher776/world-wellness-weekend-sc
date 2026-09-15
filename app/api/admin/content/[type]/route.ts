@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { CONTENT_TYPES, type ContentTypeSlug } from "@/lib/cms-schema";
-import { fetchContentRows, upsertRow, newId } from "@/lib/cms";
+import { fetchContentRows, upsertRow, deleteRow, newId } from "@/lib/cms";
 
 export async function GET(
   _request: Request,
@@ -46,6 +46,47 @@ export async function POST(
   const row = { ID: id, ...fields };
 
   const result = await upsertRow(def.sheetName, row);
+  if (!result.ok) {
+    return NextResponse.json({ ok: false, error: result.error }, { status: 502 });
+  }
+
+  return NextResponse.json({ ok: true, id });
+}
+
+/**
+ * Permanently deletes an entry. Previously the admin panel only supported
+ * upserting, so the only way to "remove" a published teacher, class, or
+ * other entry was to overwrite it with different content — this gives a
+ * real delete path instead. Accepts the entry ID either as a `?id=` query
+ * param or in a JSON body (`{ "id": "..." }`).
+ */
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ type: string }> }
+) {
+  const { type } = await params;
+  const def = CONTENT_TYPES[type as ContentTypeSlug];
+  if (!def) {
+    return NextResponse.json({ ok: false, error: "Unknown content type." }, { status: 404 });
+  }
+
+  const { searchParams } = new URL(request.url);
+  let id = searchParams.get("id")?.trim() || "";
+
+  if (!id) {
+    try {
+      const body = await request.json();
+      id = typeof body?.id === "string" ? body.id.trim() : "";
+    } catch {
+      // No JSON body provided — fall through to the missing-id check below.
+    }
+  }
+
+  if (!id) {
+    return NextResponse.json({ ok: false, error: "Missing entry id." }, { status: 400 });
+  }
+
+  const result = await deleteRow(def.sheetName, id);
   if (!result.ok) {
     return NextResponse.json({ ok: false, error: result.error }, { status: 502 });
   }

@@ -2,8 +2,9 @@ import { CONTENT_TYPES, type ContentTypeSlug } from "@/lib/cms-schema";
 
 // Same Google Apps Script Web App already used for the RSVP form's Google
 // Sheets logging. It has been extended (see docs/apps-script.md) to also
-// support `?action=list&sheet=...` (public read) and
-// `action: "upsert"` POST bodies (admin write, secret-gated).
+// support `?action=list&sheet=...` (public read),
+// `action: "upsert"` POST bodies (admin write, secret-gated), and
+// `action: "delete"` POST bodies (admin delete, secret-gated).
 const CMS_URL = process.env.CMS_WEBHOOK_URL || process.env.GOOGLE_SHEETS_WEBHOOK_URL;
 
 // Google's Apps Script exec endpoint (script.google.com/.../exec) returns a
@@ -125,6 +126,62 @@ export async function upsertRow(
         method: "POST",
         headers: { "Content-Type": "application/json", ...CMS_FETCH_HEADERS },
         body: JSON.stringify({ action: "upsert", sheet: sheetName, secret, row }),
+        redirect: "follow",
+      });
+      if (!res.ok) {
+        lastError = `CMS responded with status ${res.status}`;
+        if (attempt < maxAttempts) {
+          await sleep(400 * attempt);
+          continue;
+        }
+        return { ok: false, error: lastError };
+      }
+      const data = await res.json().catch(() => ({}));
+      if (data?.ok === false) {
+        return { ok: false, error: data?.error || "Unknown CMS error" };
+      }
+      return { ok: true };
+    } catch (err) {
+      lastError = err instanceof Error ? err.message : "Unknown error";
+      if (attempt < maxAttempts) {
+        await sleep(400 * attempt);
+        continue;
+      }
+      return { ok: false, error: lastError };
+    }
+  }
+
+  return { ok: false, error: lastError };
+}
+
+/**
+ * Permanently deletes a row (by its ID) from a content tab via the Apps
+ * Script webhook. Only ever called from server-side admin API routes, never
+ * from the browser, since it requires the ADMIN_API_SECRET. This is what
+ * powers the "Delete" button in the admin panel — previously the only way
+ * to remove a published entry was to overwrite it with different content.
+ */
+export async function deleteRow(
+  sheetName: string,
+  id: string
+): Promise<{ ok: boolean; error?: string }> {
+  if (!CMS_URL) {
+    return { ok: false, error: "CMS_WEBHOOK_URL is not configured." };
+  }
+  const secret = process.env.ADMIN_API_SECRET;
+  if (!secret) {
+    return { ok: false, error: "ADMIN_API_SECRET is not configured." };
+  }
+
+  const maxAttempts = 3;
+  let lastError = "Unknown error";
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const res = await fetch(CMS_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...CMS_FETCH_HEADERS },
+        body: JSON.stringify({ action: "delete", sheet: sheetName, secret, id }),
         redirect: "follow",
       });
       if (!res.ok) {

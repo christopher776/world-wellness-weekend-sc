@@ -3,8 +3,8 @@
 This extends the existing Apps Script Web App (the same one already used for
 the RSVP form's Google Sheets logging) so it can also serve as the backend
 for the admin content area — reading published Teachers/Sponsors/Organizers/
-Schedule rows for the public pages, and accepting authenticated writes from
-the admin forms.
+Schedule rows for the public pages, and accepting authenticated writes
+(and now deletes) from the admin forms.
 
 ## One-time setup
 
@@ -31,7 +31,7 @@ function doPost(e) {
   var body = JSON.parse(e.postData.contents);
   var ss = SpreadsheetApp.getActiveSpreadsheet();
 
-  // Admin CMS write (organizers/teachers/sponsors/schedule/marketplace operations)
+  // Admin CMS write (organizers/teachers/sponsors/schedule/posts/marketplace operations)
   if (body.action === "upsert") {
     if (!body.secret || body.secret !== getAdminSecret()) {
       return jsonResponse({ ok: false, error: "Unauthorized" });
@@ -54,6 +54,31 @@ function doPost(e) {
     if (rowIndex > 0) sheet.getRange(rowIndex, 1, 1, values.length).setValues([values]);
     else sheet.appendRow(values);
     return jsonResponse({ ok: true, id: id });
+  }
+
+  // Admin CMS delete — permanently removes a row by its ID. Powers the
+  // "Delete" button in the admin panel (previously the only way to remove
+  // a published entry was to overwrite it with different content).
+  if (body.action === "delete") {
+    if (!body.secret || body.secret !== getAdminSecret()) {
+      return jsonResponse({ ok: false, error: "Unauthorized" });
+    }
+    var sheet = ss.getSheetByName(body.sheet);
+    if (!sheet) return jsonResponse({ ok: false, error: "Unknown sheet: " + body.sheet });
+
+    var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    var idCol = headers.indexOf("ID");
+    if (idCol < 0) return jsonResponse({ ok: false, error: "Sheet has no ID column" });
+
+    var data = sheet.getDataRange().getValues();
+    var rowIndex = -1;
+    for (var i = 1; i < data.length; i++) {
+      if (data[i][idCol] === body.id) { rowIndex = i + 1; break; }
+    }
+    if (rowIndex < 0) return jsonResponse({ ok: false, error: "Entry not found" });
+
+    sheet.deleteRow(rowIndex);
+    return jsonResponse({ ok: true, id: body.id });
   }
 
   var sheet = ss.getSheetByName("Submissions");

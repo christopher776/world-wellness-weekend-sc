@@ -3,6 +3,7 @@ import { Pencil, CircleCheck, CircleDashed } from "lucide-react";
 import type { ContentTypeDef } from "@/lib/cms-schema";
 import type { CmsRow } from "@/lib/cms";
 import { truthy } from "@/lib/cms";
+import { DeleteEntryButton } from "@/components/admin/delete-entry-button";
 
 export function EntriesList({ def, rows }: { def: ContentTypeDef; rows: CmsRow[] }) {
   const titleField = def.fields[0]?.name ?? "ID";
@@ -23,7 +24,7 @@ export function EntriesList({ def, rows }: { def: ContentTypeDef; rows: CmsRow[]
         return (
           <li
             key={row.ID}
-            className="flex items-center justify-between gap-4 rounded-lg border border-navy-100 bg-white px-5 py-3"
+            className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-navy-100 bg-white px-5 py-3"
           >
             <div className="flex min-w-0 items-center gap-3">
               {published ? (
@@ -40,12 +41,15 @@ export function EntriesList({ def, rows }: { def: ContentTypeDef; rows: CmsRow[]
                 {published ? "Published" : "Draft"}
               </span>
             </div>
-            <Link
-              href={`/admin/${def.slug}/${encodeURIComponent(row.ID)}`}
-              className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-navy-100 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-navy-600 hover:border-gold-300 hover:text-gold-700"
-            >
-              <Pencil className="h-3.5 w-3.5" /> Edit
-            </Link>
+            <div className="flex shrink-0 items-center gap-2">
+              <Link
+                href={`/admin/${def.slug}/${encodeURIComponent(row.ID)}`}
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-navy-100 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-navy-600 hover:border-gold-300 hover:text-gold-700"
+              >
+                <Pencil className="h-3.5 w-3.5" /> Edit
+              </Link>
+              <DeleteEntryButton typeSlug={def.slug} id={row.ID} label={title} />
+            </div>
           </li>
         );
       })}
