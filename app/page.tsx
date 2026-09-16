@@ -82,7 +82,7 @@ export default function HomePage() {
 
           <div className="mx-auto mt-14 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3">
             <StatBadge icon={Calendar} label="Event Dates" value="Sep 18–19, 2026" />
-            <StatBadge icon={MapPin} label="Location" value="Charleston, SC" />
+            <StatBadge icon={MapPin} label="Location" value={<>The Francis Marion Hotel<br />Charleston, SC</>} />
             <StatBadge icon={Sparkles} label="Early Bird Deadline" value="July 30, 2026" />
           </div>
 
