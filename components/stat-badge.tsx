@@ -1,9 +1,10 @@
+import { ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
 
 interface StatBadgeProps {
   icon: LucideIcon;
   label: string;
-  value: string;
+  value: ReactNode;
 }
 
 export function StatBadge({ icon: Icon, label, value }: StatBadgeProps) {
