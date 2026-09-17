@@ -40,8 +40,8 @@ async function logSale(order: MarketplaceOrderPayload) {
       email: order.email,
       phone: order.phone,
       organization: order.itemTitle,
-      interest: `Locked price $${order.price.toFixed(2)} · ${order.orderId}`,
-      message: `Marketplace claim | Item ID: ${order.itemId} | Retail: $${order.retailValue.toFixed(2)} | Locked: $${order.price.toFixed(2)} | Claimed: ${order.claimedAt}`,
+      interest: `Total $${order.price.toFixed(2)} · ${order.orderId}`,
+      message: `Marketplace claim | Item ID: ${order.itemId} | Retail: $${order.retailValue.toFixed(2)} | Item price: $${(order.subtotal ?? order.price).toFixed(2)} | Sales tax: $${(order.salesTax ?? 0).toFixed(2)} | Total: $${order.price.toFixed(2)} | Claimed: ${order.claimedAt}`,
     }),
     redirect: "follow",
   });
@@ -79,7 +79,7 @@ async function sendEmails(
       body: form.toString(),
     });
   };
-  const detail = `${order.itemTitle}\nLocked price: $${order.price.toFixed(2)}\nOrder: ${order.orderId}\nName: ${order.name}\nEmail: ${order.email}\nPhone: ${order.phone}`;
+  const detail = `${order.itemTitle}\nItem price: $${(order.subtotal ?? order.price).toFixed(2)}\nCharleston sales tax: $${(order.salesTax ?? 0).toFixed(2)}\nTotal due: $${order.price.toFixed(2)}\nOrder: ${order.orderId}\nName: ${order.name}\nEmail: ${order.email}\nPhone: ${order.phone}`;
   const buyerText = paymentReady
     ? `Thank you for making it yours.\n\n${detail}\n\nYour price is frozen at the amount above and the item is reserved for you. Complete payment in the secure Authorize.Net checkout opened after your reservation. If you closed the payment page, contact SC Wellness Weekend so we can assist.`
     : `Thank you for making it yours.\n\n${detail}\n\nYour price is frozen at the amount above while the item is reserved pending payment. We will follow up with payment and fulfillment details.`;
@@ -175,6 +175,7 @@ export async function POST(request: Request) {
       checkout = await createAuthorizeNetHostedToken({
         orderId: result.orderId,
         amount: result.price,
+        taxAmount: result.payload.salesTax,
         itemTitle: item.Title,
         email,
         returnUrl,
@@ -194,6 +195,9 @@ export async function POST(request: Request) {
       ok: true,
       orderId: result.orderId,
       price: result.price,
+      subtotal: result.payload.subtotal,
+      salesTax: result.payload.salesTax,
+      salesTaxRate: result.payload.salesTaxRate,
       remaining: result.remaining,
       checkout,
       message: checkout

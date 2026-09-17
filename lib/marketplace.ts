@@ -6,6 +6,7 @@ import {
 } from "node:crypto";
 import { del, list, put } from "@vercel/blob";
 import { marketplacePrice } from "@/lib/marketplace-pricing";
+import { marketplaceTotal } from "@/lib/marketplace-tax";
 export const MARKETPLACE_ITEM_PREFIX = "sc-wellness-marketplace/items/";
 export const MARKETPLACE_CLAIM_PREFIX = "sc-wellness-marketplace/claims/";
 export interface MarketplaceItem {
@@ -44,6 +45,8 @@ export interface MarketplaceAvailability {
     orderId: string;
     slot: number;
     price: number;
+    subtotal?: number;
+    salesTax?: number;
     paymentStatus: "PENDING" | "PAID" | "REFUNDED";
     transactionId?: string;
   }>;
@@ -54,6 +57,9 @@ export interface MarketplaceOrderPayload {
   slot?: number;
   itemTitle: string;
   price: number;
+  subtotal?: number;
+  salesTax?: number;
+  salesTaxRate?: number;
   retailValue: number;
   claimedAt: string;
   name: string;
@@ -251,6 +257,8 @@ export async function marketplaceAvailability(
                   orderId: entry.orderId,
                   slot: entry.slot || index + 1,
                   price: entry.price,
+                  subtotal: entry.subtotal,
+                  salesTax: entry.salesTax,
                   paymentStatus: entry.paymentStatus || ("PENDING" as const),
                   transactionId: entry.transactionId,
                 })),
@@ -381,13 +389,17 @@ export async function claimMarketplaceItem(
   requireStorage();
   encryptionKey();
   const pricing = marketplacePrice(item, new Date());
+  const total = marketplaceTotal(pricing.price, item.TaxCategory);
   const orderId = `order-${Date.now().toString(36)}-${randomBytes(3).toString("hex")}`;
   const claimedAt = new Date().toISOString();
   const payload: MarketplaceOrderPayload = {
     orderId,
     itemId: item.ID,
     itemTitle: item.Title,
-    price: Number(pricing.price.toFixed(2)),
+    price: total.total,
+    subtotal: total.subtotal,
+    salesTax: total.salesTax,
+    salesTaxRate: total.salesTaxRate,
     retailValue: Number(item.RetailValue),
     claimedAt,
     name: contact.name.trim(),
