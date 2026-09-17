@@ -16,6 +16,7 @@ import {
   marketplacePrice,
   parseCharlestonDateTime,
 } from "@/lib/marketplace-pricing";
+import { marketplaceTotal } from "@/lib/marketplace-tax";
 const money = (value: number) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(
     value,
@@ -35,6 +36,8 @@ type Checkout = { token: string; paymentUrl: string };
 type Success = {
   title: string;
   price: number;
+  subtotal: number;
+  salesTax: number;
   orderId: string;
   checkout?: Checkout | null;
 };
@@ -132,6 +135,8 @@ export function MarketplaceExperience({
       setSuccess({
         title: itemTitle,
         price: Number(data.price),
+        subtotal: Number(data.subtotal),
+        salesTax: Number(data.salesTax),
         orderId: data.orderId,
         checkout: data.checkout || null,
       });
@@ -168,6 +173,7 @@ export function MarketplaceExperience({
       <section className="mx-auto grid max-w-6xl gap-6 px-6 py-10 md:grid-cols-2 lg:grid-cols-3">
         {items.map((item) => {
           const pricing = marketplacePrice(item, new Date(now));
+          const total = marketplaceTotal(pricing.price, item.TaxCategory);
           const fixed = item.PricingMode === "FIXED";
           const launch =
             parseCharlestonDateTime(item.LaunchAt)?.getTime() ?? Infinity;
@@ -228,6 +234,11 @@ export function MarketplaceExperience({
                       <p className="font-serif text-3xl font-bold text-navy-800">
                         {money(pricing.price)}
                       </p>
+                      {total.salesTaxRate > 0 && (
+                        <p className="mt-1 text-xs text-navy-600">
+                          + {money(total.salesTax)} Charleston sales tax (9%) · Total {money(total.total)}
+                        </p>
+                      )}
                     </div>
                     {!fixed && (
                       <div className="text-right">
@@ -286,7 +297,7 @@ export function MarketplaceExperience({
                     }}
                     className="mt-4 w-full rounded-md bg-gold-600 px-5 py-3 text-sm font-bold uppercase tracking-wide text-navy-900 shadow-sm hover:bg-gold-700"
                   >
-                    MAKE THIS MINE — {money(pricing.price)}
+                    MAKE THIS MINE — {money(total.total)}
                   </button>
                 )}
                 {item.PickupDetails && (
@@ -323,6 +334,24 @@ export function MarketplaceExperience({
                 ? "When you submit, one unit is reserved for you at the set price. If secure checkout is available, you can pay immediately on Authorize.Net."
                 : "When you submit, the server freezes the current price and reserves this item for you. If secure checkout is available, you can pay immediately on Authorize.Net."}
             </p>
+            {(() => {
+              const estimate = marketplaceTotal(
+                marketplacePrice(active, new Date(now)).price,
+                active.TaxCategory,
+              );
+              return (
+                <div className="mt-4 rounded-lg bg-cream-100 p-3 text-sm text-navy-700">
+                  <p>Item price: {money(estimate.subtotal)}</p>
+                  {estimate.salesTaxRate > 0 && (
+                    <p>Charleston sales tax (9%): {money(estimate.salesTax)}</p>
+                  )}
+                  <p className="mt-1 font-bold">Estimated total: {money(estimate.total)}</p>
+                  {active.PricingMode !== "FIXED" && (
+                    <p className="mt-1 text-xs">Final price is frozen when you submit.</p>
+                  )}
+                </div>
+              );
+            })()}
             <div className="mt-5 space-y-3">
               <input
                 required
@@ -356,8 +385,8 @@ export function MarketplaceExperience({
                   name="accepted"
                   className="mt-1"
                 />
-                I agree to purchase this item at the displayed price when I
-                submit. Applicable tax, if any, is handled at payment.
+                I agree to purchase this item at the displayed total when I
+                submit, including any applicable sales tax.
               </label>
             </div>
             {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
@@ -390,8 +419,15 @@ export function MarketplaceExperience({
               It’s reserved for you.
             </h2>
             <p className="mt-3 text-navy-600">
-              {success.title} is frozen at{" "}
-              <strong>{money(success.price)}</strong>.
+              {success.title} is reserved. Item price: {money(success.subtotal)}.
+            </p>
+            {success.salesTax > 0 && (
+              <p className="mt-1 text-sm text-navy-600">
+                Charleston sales tax: {money(success.salesTax)}.
+              </p>
+            )}
+            <p className="mt-1 font-bold text-navy-800">
+              Total due: {money(success.price)}.
             </p>
             <p className="mt-2 text-xs text-navy-500">
               Order {success.orderId}. Your unit is reserved while payment is

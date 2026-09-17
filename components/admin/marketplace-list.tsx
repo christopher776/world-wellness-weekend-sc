@@ -232,6 +232,11 @@ export function MarketplaceList({
                           Order {order.orderId} · unit {order.slot} · $
                           {order.price.toFixed(2)} · {order.paymentStatus}
                         </p>
+                        {(order.salesTax ?? 0) > 0 && (
+                          <p className="mt-1 text-xs">
+                            Item ${order.subtotal?.toFixed(2)} + Charleston sales tax ${order.salesTax?.toFixed(2)} = ${order.price.toFixed(2)} total
+                          </p>
+                        )}
                         {order.transactionId && (
                           <p className="mt-1 text-xs">
                             Txn {order.transactionId}
