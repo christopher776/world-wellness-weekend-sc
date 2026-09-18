@@ -26,6 +26,7 @@ export function MarketplaceList({
   const [releasing, setReleasing] = useState<string | null>(null);
   const [verifying, setVerifying] = useState<string | null>(null);
   const [refunding, setRefunding] = useState<string | null>(null);
+  const [restarting, setRestarting] = useState<string | null>(null);
   const [transactionIds, setTransactionIds] = useState<Record<string, string>>(
     {},
   );
@@ -117,6 +118,24 @@ export function MarketplaceList({
       window.alert(error instanceof Error ? error.message : "Refund failed.");
     } finally {
       setRefunding(null);
+    }
+  }
+  async function restart(item: MarketplaceItem) {
+    if (!window.confirm(`Restart the live price drop for ${item.Title} at full retail ($${Number(item.RetailValue).toFixed(2)}) now? The countdown will run for its configured duration to the same floor price.`)) return;
+    setRestarting(item.ID);
+    try {
+      const response = await fetch("/api/admin/marketplace/restart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ itemId: item.ID }),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.ok) throw new Error(data.error || "Restart failed.");
+      router.refresh();
+    } catch (error) {
+      window.alert(error instanceof Error ? error.message : "Restart failed.");
+    } finally {
+      setRestarting(null);
     }
   }
   if (items.length === 0)
@@ -391,7 +410,15 @@ export function MarketplaceList({
                       <strong>Editing {item.Title}.</strong> Once a price drop
                       has started, pricing and core offer details remain locked.
                     </div>
-                    <MarketplaceForm initialItem={item} />
+                    <div className="mb-4 rounded-lg border border-gold-200 bg-white p-4">
+                      <p className="text-sm text-navy-600">Restart from full retail and run the same countdown to the same floor.</p>
+                      {item.RestartedAt && <p className="mt-1 text-xs text-navy-500">Last restarted: {new Date(item.RestartedAt).toLocaleString("en-US", { timeZone: "America/New_York", timeZoneName: "short" })}</p>}
+                      <button type="button" disabled={restarting === item.ID} onClick={() => restart(item)} className="mt-3 inline-flex items-center gap-2 rounded-md border border-gold-400 px-4 py-2 text-xs font-bold uppercase tracking-wide text-navy-800 hover:bg-gold-50 disabled:opacity-50">
+                        {restarting === item.ID ? <Loader2 className="h-4 w-4 animate-spin" /> : <RotateCcw className="h-4 w-4" />}
+                        Restart Price Drop
+                      </button>
+                    </div>
+                    <MarketplaceForm key={item.UpdatedAt} initialItem={item} />
                   </>
                 )}
               </div>

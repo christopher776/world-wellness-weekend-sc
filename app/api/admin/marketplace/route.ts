@@ -214,6 +214,9 @@ export async function POST(request: Request) {
     Featured: fields.Featured === "TRUE" ? "TRUE" : "FALSE",
     Published: fields.Published === "TRUE" ? "TRUE" : "FALSE",
     UpdatedAt: new Date().toISOString(),
+    RestartedAt: current?.RestartedAt,
+    RestartCount: current?.RestartCount,
+    RestartedBy: current?.RestartedBy,
   };
   try {
     await saveMarketplaceItem(item);

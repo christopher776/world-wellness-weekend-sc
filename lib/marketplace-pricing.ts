@@ -41,6 +41,16 @@ export function parseCharlestonDateTime(value?: string | null) {
   );
   return Number.isNaN(date.getTime()) ? null : date;
 }
+export function restartedCountdown(item: MarketplacePricedItem, now: Date) {
+  const start = parseCharlestonDateTime(item.LaunchAt);
+  const end = parseCharlestonDateTime(item.EndAt);
+  if (!start || !end || end <= start || !Number.isFinite(now.getTime()))
+    throw new Error("This listing does not have a valid countdown duration.");
+  return {
+    LaunchAt: now.toISOString(),
+    EndAt: new Date(now.getTime() + end.getTime() - start.getTime()).toISOString(),
+  };
+}
 export function marketplacePrice(
   item: MarketplacePricedItem,
   now = new Date(),

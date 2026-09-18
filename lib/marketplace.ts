@@ -27,6 +27,9 @@ export interface MarketplaceItem {
   Featured: string;
   Published: string;
   UpdatedAt: string;
+  RestartedAt?: string;
+  RestartCount?: number;
+  RestartedBy?: string;
 }
 export interface MarketplaceAvailability {
   itemId: string;

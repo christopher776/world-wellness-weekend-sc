@@ -56,13 +56,14 @@ function postCheckout(checkout: Checkout) {
   form.remove();
 }
 export function MarketplaceExperience({
-  items,
+  items: initialItems,
   initialAvailability,
 }: {
   items: MarketplaceItem[];
   initialAvailability: MarketplaceAvailability[];
 }) {
   const [now, setNow] = useState(Date.now());
+  const [items, setItems] = useState(initialItems);
   const [availability, setAvailability] = useState(initialAvailability);
   const [availabilityReady, setAvailabilityReady] = useState(true);
   const [active, setActive] = useState<MarketplaceItem | null>(null);
@@ -82,6 +83,7 @@ export function MarketplaceExperience({
         const data = await response.json();
         if (response.ok && data.ok && Array.isArray(data.availability)) {
           setAvailability(data.availability);
+          if (Array.isArray(data.items)) setItems(data.items);
           setAvailabilityReady(true);
         } else {
           setAvailabilityReady(false);
