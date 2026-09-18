@@ -67,7 +67,7 @@ export default async function SchedulePage() {
             Everything happening at South Carolina Wellness Weekend, organized by day and time.
           </p>
           <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-navy-400">
-            All times are Eastern Time (Charleston, SC)
+            All times are Eastern Daylight Time (Charleston, SC)
           </p>
         </div>
       </section>
@@ -84,6 +84,11 @@ export default async function SchedulePage() {
                 <h2 className="mb-6 font-serif text-2xl font-bold uppercase tracking-wide text-navy-800">
                   {formatEventDate(date) || date}
                 </h2>
+                {/^Saturday, September 19, 2026$/.test(formatEventDate(date)) && (
+                  <p className="-mt-3 mb-6 text-sm font-semibold text-navy-600">
+                    Registration begins at 8:30 AM EDT · Activities 9:00 AM–5:00 PM EDT
+                  </p>
+                )}
                 <div className="space-y-4">
                   {byDate.get(date)!.map((item) => {
                     const teacher = item.InstructorTeacherID

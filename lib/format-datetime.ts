@@ -17,7 +17,15 @@
 export function formatEventDate(dateStr: string | undefined | null): string {
   if (!dateStr) return "";
   const match = dateStr.trim().match(/^(\d{4})-(\d{2})-(\d{2})/);
-  if (!match) return dateStr;
+  if (!match) {
+    // Legacy schedule rows contain Date.toString() values such as
+    // "Sat Sep 19 2026 00:00:00 GMT-0400 (Eastern Daylight Time)".
+    // Use their calendar date, never their midnight timestamp or GMT suffix.
+    const legacy = dateStr.trim().match(/^(?:Sun|Mon|Tue|Wed|Thu|Fri|Sat)\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})\s+(\d{4})\b/i);
+    if (!legacy) return dateStr;
+    const month = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"].indexOf(legacy[1].toLowerCase()) + 1;
+    return formatEventDate(`${legacy[3]}-${String(month).padStart(2, "0")}-${legacy[2].padStart(2, "0")}`);
+  }
 
   const [, y, m, d] = match;
   // Construct the Date from explicit local Y/M/D components (not by parsing
@@ -48,16 +56,17 @@ export function formatEventTime(timeStr: string | undefined | null): string {
 }
 
 /**
- * Formats a start/end time pair as "9:00 AM–10:30 AM ET" (single trailing
- * "ET" label rather than repeating it for both times).
+ * Formats September event times with one EDT label, removing stale timezone
+ * suffixes already stored on individual schedule entries.
  */
 export function formatEventTimeRange(
   startTime: string | undefined | null,
   endTime: string | undefined | null
 ): string {
-  const start = startTime?.trim();
-  const end = endTime?.trim();
+  const clean = (value?: string | null) => value?.trim().replace(/\s+(?:EST|EDT|ET)$/i, "");
+  const start = clean(startTime);
+  const end = clean(endTime);
   if (!start && !end) return "";
   const range = end ? `${start ?? ""}–${end}` : start ?? "";
-  return `${range} ET`;
+  return `${range} EDT`;
 }
