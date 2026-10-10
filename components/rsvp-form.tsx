@@ -195,7 +195,6 @@ export function RsvpForm({ defaultInterest = "General Updates (RSVP)" }: RsvpFor
         >
           <option>General Updates (RSVP)</option>
           <option>Sponsorship &amp; Exhibitor Opportunities</option>
-          <option>Room Rentals</option>
           <option>Teaching a Wellness Class</option>
           <option>VIP Rest &amp; Restore Lounge</option>
           <option>SC Spa &amp; Wellness Association Membership</option>

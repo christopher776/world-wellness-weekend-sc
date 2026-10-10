@@ -5,35 +5,6 @@ export interface PaymentLink {
 export const AUTHORIZE_NET_ACTION =
   "https://Simplecheckout.authorize.net/payment/CatalogPayment.aspx";
 
-export const rentals = {
-  treatmentRoom: {
-    name: "Treatment Room Rental",
-    price: "$1,000",
-    unit: "Per Day",
-    description:
-      "Have a private treatment room to showcase your services, offer mini treatments or consultations, and connect one-on-one with attendees in a serene setting.",
-    linkId: "cae883ee-a946-4278-b4c0-b632d98a75cf",
-  },
-  businessRoom: {
-    name: "Business Room Rental",
-    description:
-      "Host workshops, educational sessions, panel discussions or CEC-accredited classes. Ideal for product training, business presentations and interactive learning.",
-    perfectFor: [
-      "Continuing Education Classes (CECs)",
-      "Product Education",
-      "Wellness Workshops",
-      "Business Meetings & Trainings",
-      "Panel Discussions",
-      "Group Coaching & More",
-    ],
-    options: [
-      { price: "$500", linkId: "42b89e3c-45d6-4f8d-82dd-040eb30ae1fa" },
-      { price: "$750", linkId: "79d6df69-0574-4727-8438-f9c19e498a17" },
-    ],
-  },
-};
-
-
 export const associationBenefits = [
   "Founding Member designation",
   "Networking with South Carolina's spa, wellness, fitness, hospitality, beauty & medical professionals",

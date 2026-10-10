@@ -29,7 +29,6 @@ export function Footer() {
               <li><Link href="/teachers" className="hover:text-gold-400">Meet Our Teachers</Link></li>
               <li><Link href="/sponsors" className="hover:text-gold-400">Sponsor Profiles</Link></li>
               <li><Link href="/schedule" className="hover:text-gold-400">Schedule of Events</Link></li>
-              <li><Link href="/rentals" className="hover:text-gold-400">Room Rentals</Link></li>
               <li><Link href="/hotel-travel" className="hover:text-gold-400">Hotel &amp; Travel</Link></li>
               <li><Link href="/association" className="hover:text-gold-400">SC Spa &amp; Wellness Association</Link></li>
               <li><Link href="/rsvp" className="hover:text-gold-400">RSVP &amp; Updates</Link></li>
