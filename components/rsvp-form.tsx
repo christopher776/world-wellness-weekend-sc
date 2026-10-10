@@ -1,14 +1,13 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { Loader2, CheckCircle, AlertCircle, Sparkles } from "lucide-react";
-import { wellnessClasses, vipTicket } from "@/lib/data";
-import { PaymentButton } from "@/components/payment-button";
+import { Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import { wellnessClasses } from "@/lib/data";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
 interface RsvpFormProps {
-  /** Pre-selects the "I'm interested in" dropdown — e.g. "VIP Ticket Access" when embedded on the VIP Tickets page. */
+  /** Pre-selects the interest dropdown. */
   defaultInterest?: string;
 }
 
@@ -100,22 +99,6 @@ export function RsvpForm({ defaultInterest = "General Updates (RSVP)" }: RsvpFor
           </button>
         </div>
 
-        {/* Enhancement option — VIP ticket upsell shown after a successful sign-up */}
-        <div className="rounded-xl border border-gold-400/40 bg-navy-800 p-8 text-center text-cream-100">
-          <Sparkles className="mx-auto mb-3 h-6 w-6 text-gold-400" />
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-400">
-            Want the Full Weekend Experience?
-          </p>
-          <h3 className="mt-2 font-serif text-2xl font-bold">VIP Experience</h3>
-          <p className="mx-auto mt-3 max-w-md text-sm text-navy-100">{vipTicket.description}</p>
-          <p className="mt-3 font-serif text-3xl font-bold text-gold-400">{vipTicket.price}</p>
-          <div className="mx-auto mt-6 max-w-xs">
-            <PaymentButton linkId={vipTicket.linkId} label="Reserve Your VIP Ticket" />
-          </div>
-          <p className="mt-3 text-xs text-navy-300">
-            Optional — your RSVP above is already confirmed either way.
-          </p>
-        </div>
       </div>
     );
   }
@@ -211,7 +194,6 @@ export function RsvpForm({ defaultInterest = "General Updates (RSVP)" }: RsvpFor
           className="w-full rounded-md border border-navy-100 bg-white px-4 py-2.5 text-sm text-navy-800 focus:border-gold-600 focus:outline-none focus:ring-1 focus:ring-gold-600"
         >
           <option>General Updates (RSVP)</option>
-          <option>VIP Ticket Access</option>
           <option>Sponsorship &amp; Exhibitor Opportunities</option>
           <option>Room Rentals</option>
           <option>Teaching a Wellness Class</option>
@@ -219,26 +201,9 @@ export function RsvpForm({ defaultInterest = "General Updates (RSVP)" }: RsvpFor
           <option>SC Spa &amp; Wellness Association Membership</option>
         </select>
         <p className="mt-1 text-xs text-navy-400">
-          Choose &ldquo;General Updates (RSVP)&rdquo; to simply RSVP, or &ldquo;VIP Ticket
-          Access&rdquo; to purchase VIP access below.
+          Choose &ldquo;General Updates (RSVP)&rdquo; to RSVP and receive event updates.
         </p>
       </div>
-
-      {form.interest === "VIP Ticket Access" && (
-        <div className="rounded-xl border border-gold-400/50 bg-navy-800 p-6 text-center text-cream-100">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-400">
-            VIP Access Requires Payment
-          </p>
-          <h3 className="mt-2 font-serif text-xl font-bold">VIP Experience — {vipTicket.price}</h3>
-          <p className="mx-auto mt-2 max-w-md text-sm text-navy-100">
-            VIP access is a paid upgrade processed securely through Authorize.Net. Click below to
-            pay now — you can still submit the form below to also get on our updates list.
-          </p>
-          <div className="mx-auto mt-4 max-w-xs">
-            <PaymentButton linkId={vipTicket.linkId} label="Pay for VIP Access" />
-          </div>
-        </div>
-      )}
 
       <div>
         <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-navy-600">

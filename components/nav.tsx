@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
-import { Menu, X, ChevronDown, Flame } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 
@@ -22,7 +22,6 @@ const navStructure: NavEntry[] = [
       { href: "/teachers", label: "Meet Our Teachers" },
       { href: "/sponsors", label: "Sponsor Profiles" },
       { href: "/schedule", label: "Schedule of Events" },
-      { href: "/vip-tickets", label: "VIP Tickets" },
       { href: "/marketplace", label: "Make It Mine" },
       { href: "/hotel-travel", label: "Hotel & Travel" },
     ],
@@ -57,18 +56,14 @@ function MobileGroup({ group, pathname, onNavigate }: { group: NavGroup; pathnam
   return <div><button type="button" onClick={() => setOpen((o) => !o)} className="flex w-full items-center justify-between text-sm font-medium uppercase tracking-wide text-navy-600">{group.label}<ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} /></button>{open && <div className="mt-2 space-y-2 border-l border-gold-100 pl-4">{group.children.map((item) => <Link key={item.href} href={item.href} onClick={onNavigate} className={cn("block text-sm text-navy-500", pathname === item.href && "text-gold-700")}>{item.label}</Link>)}</div>}</div>;
 }
 
-function VipNavBadge({ className = "", onClick }: { className?: string; onClick?: () => void }) {
-  return <Link href="/vip-tickets" onClick={onClick} className={cn("relative inline-flex h-[76px] w-[76px] shrink-0 items-center justify-center rounded-full bg-white text-center shadow-md ring-2 ring-gold-500 transition-transform hover:scale-105", className)}><span aria-hidden="true" className="absolute inset-0 rounded-full ring-2 ring-red-400 animate-ping" /><span className="relative flex flex-col items-center gap-0.5 px-1.5"><Flame className="h-3 w-3 text-red-500" /><span className="text-[9.5px] font-bold uppercase leading-tight tracking-tight text-navy-800">Reserve<br />VIP Access</span></span></Link>;
-}
-
 export function Nav() {
   const pathname = usePathname(); const [open, setOpen] = useState(false);
   return <header className="sticky top-0 z-50 border-b border-gold-100 bg-cream-100/95 backdrop-blur">
     <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
       <Link href="/" aria-label="South Carolina Wellness Weekend — home" className="flex items-center gap-3"><Logo type="mark" asLink={false} imageClassName="w-10" /><span className="leading-tight"><span className="block font-serif text-base font-bold tracking-wide text-navy-800">SOUTH CAROLINA WELLNESS WEEKEND</span><span className="block text-[11px] uppercase tracking-[0.25em] text-gold-700">South Carolina</span></span></Link>
-      <nav className="hidden md:flex items-center gap-6">{navStructure.map((entry) => isGroup(entry) ? <DesktopDropdown key={entry.label} group={entry} pathname={pathname} /> : <Link key={entry.href} href={entry.href} className={cn("text-sm font-medium uppercase tracking-wide text-navy-600 hover:text-gold-700 transition-colors", pathname === entry.href && "text-gold-700")}>{entry.label}</Link>)}<VipNavBadge className="hidden lg:inline-flex" /></nav>
+      <nav className="hidden md:flex items-center gap-6">{navStructure.map((entry) => isGroup(entry) ? <DesktopDropdown key={entry.label} group={entry} pathname={pathname} /> : <Link key={entry.href} href={entry.href} className={cn("text-sm font-medium uppercase tracking-wide text-navy-600 hover:text-gold-700 transition-colors", pathname === entry.href && "text-gold-700")}>{entry.label}</Link>)}</nav>
       <button className="md:hidden text-navy-800" onClick={() => setOpen(!open)} aria-label="Toggle menu">{open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}</button>
     </div>
-    {open && <nav className="md:hidden border-t border-gold-100 bg-cream-100 px-6 py-4 space-y-4"><div className="flex justify-center"><VipNavBadge onClick={() => setOpen(false)} /></div>{navStructure.map((entry) => isGroup(entry) ? <MobileGroup key={entry.label} group={entry} pathname={pathname} onNavigate={() => setOpen(false)} /> : <Link key={entry.href} href={entry.href} onClick={() => setOpen(false)} className={cn("block text-sm font-medium uppercase tracking-wide text-navy-600", pathname === entry.href && "text-gold-700")}>{entry.label}</Link>)}</nav>}
+    {open && <nav className="md:hidden border-t border-gold-100 bg-cream-100 px-6 py-4 space-y-4">{navStructure.map((entry) => isGroup(entry) ? <MobileGroup key={entry.label} group={entry} pathname={pathname} onNavigate={() => setOpen(false)} /> : <Link key={entry.href} href={entry.href} onClick={() => setOpen(false)} className={cn("block text-sm font-medium uppercase tracking-wide text-navy-600", pathname === entry.href && "text-gold-700")}>{entry.label}</Link>)}</nav>}
   </header>;
 }

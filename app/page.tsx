@@ -14,7 +14,6 @@ import {
 import { SectionHeading } from "@/components/section-heading";
 import { StatBadge } from "@/components/stat-badge";
 import { Logo } from "@/components/logo";
-import { VipFomoSection } from "@/components/vip-fomo-section";
 import { TikTokIcon } from "@/components/tiktok-icon";
 import {
   wellnessClasses,
@@ -65,12 +64,6 @@ export default function HomePage() {
             >
               Explore Marketplace <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link
-              href="/vip-tickets"
-              className="inline-flex items-center gap-2 rounded-md border-2 border-gold-600 bg-white/60 px-8 py-4 text-sm font-semibold uppercase tracking-wide text-navy-800 transition-colors hover:bg-gold-50"
-            >
-              Attend as a VIP <ArrowRight className="h-4 w-4" />
-            </Link>
           </div>
 
           <div className="mx-auto mt-14 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3">
@@ -105,9 +98,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* VIP urgency / FOMO */}
-      <VipFomoSection />
 
       {/* Wellness classes */}
       <section className="bg-navy-800 py-20 text-cream-100">

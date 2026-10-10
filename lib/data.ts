@@ -66,23 +66,6 @@ export const whyCharleston = [
   "The perfect backdrop for wellness and community",
 ];
 
-// VIP Tickets — per the "VIP Tickets" doc tab: $100, 100 tickets available.
-export const vipTicket = {
-  price: "$100",
-  ticketsAvailable: 100,
-  description:
-    "Priority access, a VIP Opening Night Party in the Francis Marion Hotel's historic Carolina Ballroom, and exclusive experiences throughout South Carolina Wellness Weekend — designed for guests who want the full weekend at its best.",
-  inclusions: [
-    "VIP Opening Night Party in the historic Carolina Ballroom",
-    "Priority registration & seating at all general sessions and classes",
-    "VIP spa & wellness gift bag valued at $250 or more",
-    "Branded South Carolina Wellness Weekend yoga mat",
-    "Access to VIP-only classes and experiences",
-    "Sponsor gifts and exclusive experiences",
-  ],
-  linkId: "dab6ea0e-9422-4739-82fc-44c2d9fb714c",
-};
-
 // Speaker topics — the categories we're actively recruiting speakers for.
 // Combines the organizer's requested specialties with additional
 // high-interest wellness topics researched from current wellness industry
