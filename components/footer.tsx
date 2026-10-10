@@ -30,7 +30,6 @@ export function Footer() {
               <li><Link href="/sponsors" className="hover:text-gold-400">Sponsor Profiles</Link></li>
               <li><Link href="/schedule" className="hover:text-gold-400">Schedule of Events</Link></li>
               <li><Link href="/vip-tickets" className="hover:text-gold-400">VIP Tickets</Link></li>
-              <li><Link href="/sponsorship" className="hover:text-gold-400">Sponsorship &amp; Exhibitors</Link></li>
               <li><Link href="/rentals" className="hover:text-gold-400">Room Rentals</Link></li>
               <li><Link href="/hotel-travel" className="hover:text-gold-400">Hotel &amp; Travel</Link></li>
               <li><Link href="/association" className="hover:text-gold-400">SC Spa &amp; Wellness Association</Link></li>

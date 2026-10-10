@@ -17,7 +17,6 @@ import { Logo } from "@/components/logo";
 import { VipFomoSection } from "@/components/vip-fomo-section";
 import { TikTokIcon } from "@/components/tiktok-icon";
 import {
-  sponsorTiers,
   wellnessClasses,
   whyCharleston,
   charlestonImages,
@@ -54,12 +53,6 @@ export default function HomePage() {
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/sponsorship"
-              className="inline-flex items-center gap-2 rounded-md bg-navy-800 px-8 py-4 text-sm font-semibold uppercase tracking-wide text-cream-100 transition-colors hover:bg-navy-600"
-            >
-              View Sponsorship Tiers <ArrowRight className="h-4 w-4" />
-            </Link>
             <Link
               href="/hotel-travel"
               className="inline-flex items-center gap-2 rounded-md border-2 border-navy-800 px-8 py-4 text-sm font-semibold uppercase tracking-wide text-navy-800 transition-colors hover:bg-navy-50"
@@ -115,43 +108,6 @@ export default function HomePage() {
 
       {/* VIP urgency / FOMO */}
       <VipFomoSection />
-
-      {/* About */}
-      <section className="mx-auto max-w-6xl px-6 py-20">
-        <SectionHeading
-          eyebrow="Sponsorship & Exhibitor Opportunities"
-          title="Every level includes a founding membership"
-          subtitle="Join the inaugural South Carolina Spa & Wellness Association as a Founding Member — membership begins January 1, 2027."
-        />
-
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {sponsorTiers.map((tier) => (
-            <div
-              key={tier.slug}
-              className="rounded-xl border border-navy-100 bg-white p-6 text-center shadow-sm"
-            >
-              <p className="font-serif text-lg font-bold text-navy-800">
-                {tier.name}
-              </p>
-              <p className="mt-2 text-2xl font-bold text-gold-700">
-                {tier.price}
-              </p>
-              <p className="mt-1 text-xs uppercase tracking-wide text-navy-400">
-                {tier.space}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-10 text-center">
-          <Link
-            href="/sponsorship"
-            className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-gold-700 hover:text-gold-600"
-          >
-            See full sponsorship benefits &amp; reserve <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </section>
 
       {/* Wellness classes */}
       <section className="bg-navy-800 py-20 text-cream-100">

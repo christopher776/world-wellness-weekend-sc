@@ -114,15 +114,6 @@ export default async function SponsorsPage() {
           </div>
         )}
 
-        <div className="mt-16 rounded-xl bg-navy-800 px-8 py-10 text-center text-cream-100">
-          <p className="font-serif text-2xl font-bold">Interested in Becoming a Sponsor?</p>
-          <Link
-            href="/sponsorship"
-            className="mt-5 inline-flex items-center gap-2 rounded-md bg-gold-600 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-navy-900 transition-colors hover:bg-gold-700"
-          >
-            Learn More <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
       </section>
     </div>
   );

@@ -15,7 +15,7 @@ interface VipFomoSectionProps {
   /** Show the full VIP benefits checklist (VIP reception, priority
    * registration & classes, spa & wellness gift bag, branded yoga mat,
    * etc). Defaults to true so benefits appear everywhere this section is
-   * used — homepage, sponsorship page, and via the matching list on the
+   * used — homepage and via the matching list on the
    * VIP Tickets page itself. */
   showBenefits?: boolean;
 }

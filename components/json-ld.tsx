@@ -24,14 +24,6 @@ export function JsonLd() {
       name: "South Carolina Spa & Wellness Association",
       url: siteConfig.url,
     },
-    offers: {
-      "@type": "AggregateOffer",
-      priceCurrency: "USD",
-      lowPrice: "200",
-      highPrice: "8000",
-      url: `${siteConfig.url}/sponsorship`,
-      availability: "https://schema.org/InStock",
-    },
   };
 
   const organizationSchema = {
